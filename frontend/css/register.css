@@ -1,0 +1,61 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(39, 203, 187);
+}
+.container_register {
+  background-color: DFF2EB;
+  position: relative;
+  border-radius: 3%;
+  width: 550px;
+  height: 600px;
+}
+
+.text {
+  width: 550px;
+  height: 100px;
+}
+
+.text p {
+  position: relative;
+  width: 500px;
+  height: 30px;
+  margin: 10px auto;
+  font-size: 30;
+  top: 10px;
+  text-align: center;
+}
+
+.container_from {
+  height: 500px;
+}
+
+.form_register input {
+  position: relative;
+  margin: 10px 50px;
+  width: 450px;
+  height: 35px;
+}
+
+.container_button_create_account {
+  background-color: C4D9FF;
+  position: relative;
+  align-items: center;
+  justify-items: center;
+  display: flex;
+  border-radius: 70px;
+  top: 30px;
+  width: 150px;
+  height: 40px;
+  margin: 0px auto;
+}
+
+.button_create_account {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-decoration: none;
+  color: black;
+}
