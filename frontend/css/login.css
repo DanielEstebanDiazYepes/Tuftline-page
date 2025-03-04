@@ -1,0 +1,69 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: blanchedalmond;
+}
+
+.container_login {
+  background-color: rgb(67, 148, 149);
+  width: 350px;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  border-radius: 3%;
+  color: aliceblue;
+  box-shadow: 5px 2px 2px 2px rgb(57, 45, 67);
+}
+
+.form_register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  margin: 15px;
+  border-radius: 0.5%;
+  border: none;
+  width: 130%;
+  height: 30px;
+  background-color: transparent;
+  border-bottom: solid black 1px;
+}
+
+input::placeholder {
+  color: rgb(255, 255, 255);
+  opacity: 1; /* Asegura que el color se vea bien en algunos navegadores */
+}
+
+.container_button_create_account {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  height: 100px;
+}
+
+.button_create_account {
+  display: flex;
+  width: 100%;
+  height: 35px;
+  background-color: aquamarine;
+  border-radius: 5%;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: black;
+}
+
+.button_create_account:hover {
+  background-color: blueviolet;
+  transition: 0.7s;
+  box-shadow: 5px 2px 2px 2px rgb(57, 45, 67);
+  color: aliceblue;
+}

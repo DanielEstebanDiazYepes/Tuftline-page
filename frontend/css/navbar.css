@@ -1,0 +1,93 @@
+.container-items{
+    background-color: #DFF2EB;
+    width: 100vw;
+    height: 80px;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    position: fixed; /* Fija el elemento en la pantalla */
+    top: 0; /* Lo pega a la parte superior */
+    left: 0; /* Lo pega al lado izquierdo */
+    right: 0; /* Lo pega al lado derecho */
+}
+
+.container_logo{
+    position: relative;
+    top: 20px;
+    display: inline-block;
+    height: 40px;
+    left: 30px;
+}
+
+.container-search{
+    height: 45px;
+}
+
+.container-search-filter{
+    background-color: #E8F9FF;
+    width: 500px;
+    height: 60px;
+    display: flex;
+    gap: 15px;
+    position: relative;
+    top: 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.bar_search{
+    position: relative;
+    width: 350px;
+    border-radius: 0px;
+    height: 45px;
+    bottom: 1px;
+
+}
+
+.select_format{
+    position: relative;
+    width: 80px;
+    bottom: 1px;
+    border-radius: 0px;
+    height: 45px;
+
+}
+
+.icon-search{
+    position: relative;
+    bottom: 1px;
+    right: 10px;
+}
+
+.bar_search, .select_format{ /* aqui estilo en conjunto estos dos elementos para agruegar estilos especificos */
+    border-radius: 10px;
+    font-size: 15;
+    font-weight: bold ;
+    background-color: #E8F9FF;
+    border: none;
+    text-align: center;
+}
+
+.bar_search:focus,.select_format:focus{ /* aqui agrego efectos en conjunto */
+    border:5px solid #aee1f3;          
+    outline:none ;
+}
+
+.container-list{
+    position: relative;
+    width: 200px;
+    height: 60px;
+    top: 6px;
+    display: flex;
+    right: 30px;
+}
+
+.container_shopping_cart-favorite-profile_icon{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    list-style-type: none;
+    font-size: 27px;
+}
+
