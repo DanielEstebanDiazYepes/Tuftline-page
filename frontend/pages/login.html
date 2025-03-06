@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register page</title>
     <link rel="stylesheet" href="/frontend/css/login.css" />
+    <script src="/frontend/js/login.js" defer></script>
   </head>
   <body>
     <div class="container_login">
@@ -18,16 +19,18 @@
             class="email_input"
             placeholder="Correo electronico"
             id="loginEmail"
+            name="loginemail"
           />
           <input
             type="text"
             class="password_input"
             placeholder="Contraseña"
             id="loginPassword"
+            name="loginpassword"
           />
         </form>
         <div class="container_button_create_account">
-          <a href="" class="button_create_account">CREAR CUENTA</a>
+          <a href="" class="button_create_account" id="button_crear_cuenta" name="button_crear_cuenta">CREAR CUENTA</a>
         </div>
       </div>
     </div>
