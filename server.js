@@ -42,3 +42,5 @@ app.listen(PORT, () => {
 });
 
 console.log("Servidor funcionando correctamente");
+
+console.log("Servidor corriendo en puerto", PORT); 

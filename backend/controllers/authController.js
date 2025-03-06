@@ -6,7 +6,7 @@ require("dotenv").config(); // 🔹 Asegurarnos de que cargue las variables de e
 // Registro de usuario
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, address, phone, email, password, role} = req.body;
 
     // Verificar si el usuario ya existe
     const userExists = await User.findOne({ email });
@@ -21,6 +21,8 @@ const registerUser = async (req, res) => {
     // Crear usuario
     const user = new User({
       name,
+      address,
+      phone,
       email,
       password: hashedPassword,
       role: role || "user",
