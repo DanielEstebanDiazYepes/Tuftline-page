@@ -20,7 +20,7 @@ document.getElementById("registerButton").addEventListener("click", async functi
   
       if (response.ok) {
         alert("Cuenta creada exitosamente!");
-        window.location.href = ".login.html";
+        window.location.href = "/frontend/pages/login.html";
       } else {
         alert(data.message || "Error al registrar el usuario.");
       }
