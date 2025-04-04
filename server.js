@@ -3,23 +3,32 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./backend/config/db"); // Importamos la conexión a la BD
+const session = require("express-session");
+const passport = require("passport");
+require("./backend/config/passport");
+
 
 // Configurar variables de entorno
 dotenv.config();
 
-//require("dotenv").config();
 
-// Inicializar la app de Express
-const app = express();
+const app = express(); //Iniciamos express
 
-// Middleware para permitir solicitudes desde otros dominios (Frontend)
-app.use(cors());
+app.use(cors()); // Middleware para permitir solicitudes desde otros dominios (Frontend)
+app.use(express.json()); // Middleware para leer JSON en las peticiones
 
-// Middleware para leer JSON en las peticiones
-app.use(express.json());
+app.use(
+  session({
+    secret: "clave_secreta_sesion",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
-// Conectar a la base de datos
-connectDB();
+app.use(passport.initialize());
+app.use(passport.session());
+
+connectDB();// Conectar a la base de datos
 
 // Importar rutas
 const authRoutes = require("./backend/routes/authRoutes");
@@ -42,5 +51,4 @@ app.listen(PORT, () => {
 });
 
 console.log("Servidor funcionando correctamente");
-
-console.log("Servidor corriendo en puerto", PORT); 
+console.log("Servidor corriendo en puerto", PORT);

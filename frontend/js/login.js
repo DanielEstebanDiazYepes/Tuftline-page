@@ -17,7 +17,13 @@ try {
 
     if (response.ok) {
         alert("Usuario logueado correctamente!");
-        window.location.href = "index.html";
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role);
+        if (data.role === "admin") {
+            window.location.href = "admin.html"; // Página de administración
+        } else {
+            window.location.href = "index.html"; // Página de usuario normal
+        }
     } else {
         alert(data.message || "Error al loguear el usuario.");
         }
