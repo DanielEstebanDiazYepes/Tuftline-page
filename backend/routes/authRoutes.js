@@ -13,9 +13,8 @@ router.get("/google", passport.authenticate("google", { scope: ["profile", "emai
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login.html" }),
+  passport.authenticate("google", { failureRedirect: "/login.html" }), 
   (req, res) => {
-    // Redirige luego del login exitoso
     res.redirect("/index.html"); // o donde desees
   }
 );
