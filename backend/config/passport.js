@@ -22,7 +22,7 @@ passport.use(
           email: profile.emails[0].value,
           password: "google_oauth",
           address: "N/A",
-          phone: "0000000000", 
+          phone: "temp-" + Date.now(),
         });
 
         await newUser.save();
