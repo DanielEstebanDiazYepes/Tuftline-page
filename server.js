@@ -34,20 +34,17 @@ app.use(passport.session());
 
 connectDB();// Conectar a la base de datos
 
-// Importar rutas
-const authRoutes = require("./backend/routes/authRoutes");
+const authRoutes = require("./backend/routes/authRoutes"); // Importar rutas
+
 app.use("/api/auth", authRoutes);
 
-// Importar rutas protegidas
-const protectedRoutes = require("./backend/routes/protectedRoutes");
+const protectedRoutes = require("./backend/routes/protectedRoutes");// Importar rutas protegidas
+
 app.use("/api/protected", protectedRoutes);
 
+const PORT = process.env.PORT || 5000;// Puerto del servidor
 
-// Puerto del servidor
-const PORT = process.env.PORT || 5000;
-
-// Iniciar el servidor
-app.listen(PORT, () => {
+app.listen(PORT, () => { // Iniciar el servidor
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 
