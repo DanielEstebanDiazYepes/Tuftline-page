@@ -17,6 +17,7 @@ app.use("/css", express.static(path.join(__dirname, "frontend/css")));
 app.use("/js", express.static(path.join(__dirname, "frontend/js")));
 app.use("/pages", express.static(path.join(__dirname, "frontend/pages")));
 app.use("/resources", express.static(path.join(__dirname, "frontend/resources")));
+app.use("/prod_icons", express.static(path.join(__dirname, "resources/prod_icons")));
 
 app.use(cors()); // Middleware para permitir solicitudes desde otros dominios (Frontend)
 app.use(express.json()); // Middleware para leer JSON en las peticiones
@@ -24,7 +25,7 @@ app.use(express.json()); // Middleware para leer JSON en las peticiones
 app.use(
   session({
     secret: "clave_secreta_sesion",
-    resave: false,
+    resave: false,              //Iniciamos la sesion (25-34 Lineas)
     saveUninitialized: true,
   })
 );
@@ -32,14 +33,16 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-connectDB();// Conectar a la base de datos
-
-const authRoutes = require("./backend/routes/authRoutes"); // Importar rutas
-
+const authRoutes = require("./backend/routes/authRoutes"); // Rutas de  log/res de usuarios
 app.use("/api/auth", authRoutes);
 
-const protectedRoutes = require("./backend/routes/protectedRoutes");// Importar rutas protegidas
+const productRoutes = require("./backend/routes/productRoutes"); // Rutas de productos
+const storeConnection = require("./backend/config/store_db");
+app.use("/api/products", productRoutes);
 
+connectDB();// Conectar a la base de datos para el log/reg de usuarios // conectamos a la base de datos de la tienda para guardar los productos
+
+const protectedRoutes = require("./backend/routes/protectedRoutes");// Importar rutas protegidas
 app.use("/api/protected", protectedRoutes);
 
 const PORT = process.env.PORT || 5000;// Puerto del servidor
