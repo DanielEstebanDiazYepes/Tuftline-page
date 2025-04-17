@@ -3,8 +3,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register page</title>
-    <link rel="stylesheet" href="/frontend/css/register.css" />
-    <script src="/frontend/js/register.js" defer></script>
+    <link rel="stylesheet" href="/css/CRUD/register.css" />
+    <script src="/js/register.js" defer></script>
   </head>
   <body>
     <div class="container_register">
@@ -49,12 +49,12 @@
             name="password"
             id="password"
           />
+          <div class="container_button_create_account">
+            <a href="" class="button_create_account" id="registerButton">CREAR CUENTA</a>
+          </div>
+          <div class="container_button_create_account">
+            <a href="http://localhost:5000/api/auth/google" class="button_google_login">Registrarse con Google</a>
         </form>
-        <div class="container_button_create_account">
-          <a href="" class="button_create_account" id="registerButton">CREAR CUENTA</a>
-        </div>
-        <div class="container_button_create_account">
-          <a href="http://localhost:5000/api/auth/google" class="button_google_login">Registrarse con Google</a>
         </div>
       </div>
     </div>

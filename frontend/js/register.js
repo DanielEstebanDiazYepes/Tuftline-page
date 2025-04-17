@@ -12,7 +12,8 @@ document.getElementById("registerButton").addEventListener("click", async functi
     try {
       const response = await fetch("http://localhost:5000/api/auth/register", { //con el fetch mandamos los datos a este direccion "backend"
         method: "POST",
-        headers: { "Content-Type": "application/json" },// Con esto mandamos una solicitud POST para crear un usuario usando la estructura JSON
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // Con esto mandamos una solicitud POST para crear un usuario usando la estructura JSON
         body: JSON.stringify(userData), 
       });
   
