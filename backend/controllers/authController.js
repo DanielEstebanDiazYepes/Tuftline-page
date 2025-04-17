@@ -14,12 +14,10 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: "El usuario ya existe" });
     }
 
-    // Encriptar contraseña
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(10);     // Encriptar contraseña
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Crear usuario
-    const user = new User({
+    const user = new User({ // Crear usuario
       name,
       address,
       phone,
@@ -30,12 +28,20 @@ const registerUser = async (req, res) => {
 
     await user.save();
 
-    res.status(201).json({ message: "Usuario registrado correctamente" });
+    req.session.user = user;
+    req.session.save(err => {
+      if (err) {
+        console.error("❌ Error al guardar sesión:", err);
+        return res.status(500).send("Error al guardar sesión");
+      }
+      res.redirect("/index.html");
+    });
+    
+
+    return res.status(201).json({ message: "Usuario registrado correctamente", user: req.session.user });
   } catch (error) {
-    console.error("Error en el registro:", error); // 🔹 Agregamos log para debug
-    res
-      .status(500)
-      .json({ message: "Error en el servidor al registrar usuario" });
+    console.error("Error en el registro:", error);
+    return res.status(500).json({ message: "Error en el servidor al registrar usuario" });
   }
 };
 
@@ -64,10 +70,16 @@ const loginUser = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.json({ message: "Login exitoso", token });
+    req.session.user = {
+      id: user._id,
+      name: user.name,
+      role: user.role
+    };
+
+    return res.json({ message: "Login exitoso", token, user: req.session.user });
   } catch (error) {
-    console.error("Error en el login:", error); // 🔹 Agregamos log para debug
-    res.status(500).json({ message: "Error en el servidor al iniciar sesión" });
+    console.error("Error en el login:", error);
+    return res.status(500).json({ message: "Error en el servidor al iniciar sesión" });
   }
 };
 

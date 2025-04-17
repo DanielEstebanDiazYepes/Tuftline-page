@@ -3,12 +3,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pagina principal</title>
     <!-- Mantuve el título de feature/cuerpo -->
-    <link rel="stylesheet" href="/css/navbar.css" />
-    <link rel="stylesheet" href="/css/body.css" />
-    <link rel="stylesheet" href="/css/produc_card.css" />
-    <link rel="stylesheet" href="/css/card-products.css" />
+    <link rel="stylesheet" href="/css/index/navbar.css" />
+    <link rel="stylesheet" href="/css/index/body.css" />
+    <link rel="stylesheet" href="/css/index/card-products.css" />
     <script src="https://kit.fontawesome.com/791268bd33.js"crossorigin="anonymous"></script>
     <script src="/js/products.js"></script>
+    <script src="/js/session.js" defer></script>
   </head>
   
   <body>
@@ -24,7 +24,7 @@
             />
           </a>
         </div>
-  
+        <div id="user-info" class="user-info"></div>
         <div class="container-search-filter">
           <div class="col_select_format">
             <select class="select_format">
@@ -92,8 +92,8 @@
                 <span class="text-primary">Doorsteps</span>
               </h2>
               <div class="conteiner-button">
-                <a href="#" class="button">Start Shopping</a>
-                <a href="#" class="button">Join Now</a>
+                <a href="/pages/CRUD/register.html" class="button">REGISTRATE</a>
+                <a href="/pages/CRUD/login.html" class="button">INICIAR SESION</a>
               </div>
             </div>
           </div>
@@ -102,6 +102,23 @@
 
       <section class="product-section">
         <div id="product-container" class="product-grid"></div>
+        
+        <script>
+          fetch("/api/auth/session", {
+            credentials: "include"
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log("✅ Datos de sesión:", data);
+              const userInfoDiv = document.querySelector(".user-info");
+              if (data.loggedIn) {
+                userInfoDiv.textContent = `Hola, ${data.user.name}`;
+              } else {
+                userInfoDiv.textContent = "No has iniciado sesión.";
+              }
+            });
+        </script>
+        
       </section>
     </main>
   
