@@ -14,6 +14,7 @@ dotenv.config(); // Configurar variables de entorno
 const app = express(); //Iniciamos express
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "frontend")));
 app.use("/css", express.static(path.join(__dirname, "frontend/css")))//Si accedemos a la carpeta madre tenemos acceso a todas sus rutas
 app.use("/js", express.static(path.join(__dirname, "frontend/js")));
 app.use("/pages", express.static(path.join(__dirname, "frontend/pages")));

@@ -30,11 +30,6 @@ const registerUser = async (req, res) => {
 
     req.session.user = user;
     req.session.save(err => {
-      if (err) {
-        console.error("❌ Error al guardar sesión:", err);
-        return res.status(500).send("Error al guardar sesión");
-      }
-      res.redirect("/index.html");
     });
     
 
@@ -45,7 +40,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-// Login de usuario
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;

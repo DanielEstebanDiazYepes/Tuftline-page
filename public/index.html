@@ -104,7 +104,7 @@
         <div id="product-container" class="product-grid"></div>
         
         <script>
-          fetch("/api/auth/session", {
+          fetch("/api/auth/me", {
             credentials: "include"
           })
             .then((res) => res.json())
