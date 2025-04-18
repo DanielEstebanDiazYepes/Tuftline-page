@@ -3,29 +3,29 @@ const passport = require("passport");
 const { registerUser, loginUser } = require("../controllers/authController");
 const router = express.Router();
 
-
 router.post("/register", registerUser); // Ruta para registro
-
 router.post("/login", loginUser); // Ruta para login
-
-
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login.html" }), 
+  passport.authenticate("google", { failureRedirect: "/login.html" }),
   (req, res) => {
-    res.redirect("/index.html"); // o donde desees
+    req.session.user = {
+      id: req.user._id,
+      name: req.user.name,
+      role: req.user.role
+    };
+    res.redirect("/index.html");
   }
 );
 
-router.get("/session", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({ loggedIn: true, user: req.user });
+router.get("/me", (req, res) => {
+  if (req.session.user) {
+    res.json({ loggedIn: true, user: req.session.user });
   } else {
     res.json({ loggedIn: false });
   }
 });
-
 
 module.exports = router;
