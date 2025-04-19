@@ -34,6 +34,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 20px;
+    right: 120px;
 }
 
 .bar_search{
@@ -80,7 +81,7 @@
     height: 60px;
     top: 6px;
     display: flex;
-    right: 30px;
+    right: 100px;
 }
 
 .container_shopping_cart-favorite-profile_icon{
@@ -91,3 +92,41 @@
     font-size: 27px;
 }
 
+.user-select {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .select-trigger {
+    cursor: pointer;
+  }
+  
+  .select-options {
+    position: absolute;
+    top: 100%; /* Justo debajo del icono */
+    left: 50%;
+    transform: translateX(-50%); /* 👈 Esto centra horizontalmente */
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    min-width: 140px;
+    z-index: 999;
+  }
+  
+  .user-select.open .select-options {
+    display: block;
+  }
+  
+  .option {
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    color: #333;
+  }
+  
+  .option:hover {
+    background-color: #f2f2f2;
+  }
+  

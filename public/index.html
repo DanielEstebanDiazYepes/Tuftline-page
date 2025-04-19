@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/css/index/body.css" />
     <link rel="stylesheet" href="/css/index/card-products.css" />
     <script src="https://kit.fontawesome.com/791268bd33.js"crossorigin="anonymous"></script>
-    <script src="/js/products.js"></script>
-    <script src="/js/session.js" defer></script>
+    <script src="/js/index/products.js"></script>
+    <script src="/js/index/navbar-profile-list.js"></script>
   </head>
   
   <body>
@@ -73,9 +73,16 @@
               </a>
             </li>
             <li>
-              <a href="" class="profle">
-                <i class="fa-solid fa-user"></i>
-              </a>
+                <div class="user-select">
+                  <div class="select-trigger">
+                    <i class="fa-solid fa-user"></i>
+                  </div>
+                  <div class="select-options">
+                    <div class="option" id="profile-btn">Mi perfil</div>
+                    <div class="option">Configuración</div>
+                    <div class="option" id="logout-btn">Cerrar sesión</div>
+                  </div>
+                </div>                
             </li>
           </ul>
         </div>
@@ -107,7 +114,7 @@
           fetch("/api/auth/me", {
             credentials: "include"
           })
-            .then((res) => res.json())
+            .then((res) => res.json())// Codigo para mostrar el nombre del usuario (SU SESION) en la parte superior derecha de la pagina
             .then((data) => {
               console.log("✅ Datos de sesión:", data);
               const userInfoDiv = document.querySelector(".user-info");
@@ -138,6 +145,5 @@
         window.location.href = "pages/login.html"; // Redirige al login
       });
     </script> -->
-    
   </body>
   

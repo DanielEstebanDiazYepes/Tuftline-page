@@ -1,4 +1,3 @@
-// Importar módulos necesarios
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -38,7 +37,6 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 2 // 2 horas en milisegundos
   }
 }));
-
 
 app.use(passport.initialize());
 app.use(passport.session());
