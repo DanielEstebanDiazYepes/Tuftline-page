@@ -8,8 +8,7 @@ const registerUser = async (req, res) => {
   try {
     const { name, address, phone, email, password, role} = req.body;
 
-    // Verificar si el usuario ya existe
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findOne({ email });    // Verificar si el usuario ya existe
     if (userExists) {
       return res.status(400).json({ message: "El usuario ya existe" });
     }
@@ -32,7 +31,6 @@ const registerUser = async (req, res) => {
     req.session.save(err => {
     });
     
-
     return res.status(201).json({ message: "Usuario registrado correctamente", user: req.session.user });
   } catch (error) {
     console.error("Error en el registro:", error);
@@ -44,8 +42,7 @@ const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Verificar si el usuario existe
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email });    // Verificar si el usuario existe
     if (!user) {
       return res.status(400).json({ message: "Usuario no encontrado" });
     }
@@ -56,10 +53,8 @@ const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Contraseña incorrecta" });
     }
 
-    // Generar token JWT usando la clave secreta del .env
-    // Generar token con ID y ROL del usuario
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
+    const token = jwt.sign(     // Generar token JWT usando la clave secreta del .env
+      { id: user._id, role: user.role },    // Generar token con ID y ROL del usuario
       process.env.JWT_SECRET, // 🔹 Usamos la clave secreta desde .env
       { expiresIn: "1h" }
     );
