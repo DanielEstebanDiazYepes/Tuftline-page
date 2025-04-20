@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { //CODIGO PARA LISTA DESPLEGABLE DE USUARIO (PERFIL Y CERRAR SESIÓN)
 
     const select = document.querySelector(".user-select");
   
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
         const data = await res.json();
         if (data.success) {
-          window.location.href = "/pages/CRUD/login.html"; // <-- REDIRECCIÓN
+          window.location.href = ""; // <-- REDIRECCIÓN
         } else {
           alert("No se pudo cerrar sesión.");
         }
@@ -34,3 +34,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
   });
+
+  
+  fetch("/api/auth/me", {
+    credentials: "include"
+  })
+    .then((res) => res.json())// Codigo para mostrar el nombre del usuario (SU SESION) en la parte superior derecha de la pagina
+    .then((data) => {
+      console.log("✅ Datos de sesión:", data);
+      const userInfoDiv = document.querySelector(".user-info");
+      const hideDiv = document.getElementById("container-btn-log-reg-text");
+
+      if (data.loggedIn) {
+        userInfoDiv.textContent = `Hola, ${data.user.name}`;
+        
+        if (hideDiv) { // Oculta el div si el usuario está logueado
+          hideDiv.style.display = "none"; 
+        }
+
+      } else {
+        userInfoDiv.textContent = "No has iniciado sesión.";
+      }
+    });
