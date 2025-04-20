@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/index/card-products.css" />
     <script src="https://kit.fontawesome.com/791268bd33.js"crossorigin="anonymous"></script>
     <script src="/js/index/products.js"></script>
-    <script src="/js/index/navbar-profile-list.js"></script>
+    <script src="/js/index/navbar-Functionalities.js"></script>
   </head>
   
   <body>
@@ -32,7 +32,6 @@
               <option>Bebidas</option>
               <option>Arinas</option>
               <option>Golosinas</option>
-              <option>sexo</option>
             </select>
           </div>
   
@@ -79,7 +78,7 @@
                   </div>
                   <div class="select-options">
                     <div class="option" id="profile-btn">Mi perfil</div>
-                    <div class="option">Configuración</div>
+                    <div class="option">Facturas</div>
                     <div class="option" id="logout-btn">Cerrar sesión</div>
                   </div>
                 </div>                
@@ -90,12 +89,12 @@
     </header>
     
     <main>
-      <section class="container-banner">
+      <section class="container-banner">/*RECUERDA QUE LA IMAGEN DEL BANER ESTA EN EL CSS (body.css) */
         <div class="conteiner-main">
-          <div class="conteiner-row">
-            <div class="conteiner-info">
+          <div class="conteiner-row" >
+            <div class="conteiner-info" id="container-btn-log-reg-text">
               <h2 class="text-primary">
-                <span class="text-primary">Asphyxia</span> Foods at your
+                <span class="text-primary">Inicia sesion y disfruta de los mejores productos</span>
                 <span class="text-primary">Doorsteps</span>
               </h2>
               <div class="conteiner-button">
@@ -109,23 +108,6 @@
 
       <section class="product-section">
         <div id="product-container" class="product-grid"></div>
-        
-        <script>
-          fetch("/api/auth/me", {
-            credentials: "include"
-          })
-            .then((res) => res.json())// Codigo para mostrar el nombre del usuario (SU SESION) en la parte superior derecha de la pagina
-            .then((data) => {
-              console.log("✅ Datos de sesión:", data);
-              const userInfoDiv = document.querySelector(".user-info");
-              if (data.loggedIn) {
-                userInfoDiv.textContent = `Hola, ${data.user.name}`;
-              } else {
-                userInfoDiv.textContent = "No has iniciado sesión.";
-              }
-            });
-        </script>
-        
       </section>
     </main>
   

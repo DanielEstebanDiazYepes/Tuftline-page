@@ -59,10 +59,12 @@ const loginUser = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    req.session.user = {
+    req.session.user = {//esta es la sesion del usuario que se guarda en el servidor(OSEA ESOS DATOS SON LOS QUE VAN A LA COOKIE)
       id: user._id,
       name: user.name,
-      role: user.role
+      address: user.address,
+      phone: user.phone,
+      email: user.email,
     };
 
     return res.json({ message: "Login exitoso", token, user: req.session.user });
