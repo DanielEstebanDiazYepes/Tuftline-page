@@ -9,3 +9,4 @@ const productSchema = new mongoose.Schema({
 });
 
 module.exports = storeConnection.model('Product', productSchema);
+  

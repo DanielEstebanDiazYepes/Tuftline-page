@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => { //CODIGO PARA MOSTRA
         document.getElementById("email").value = user.email || "";
       } else {
         alert("Debes iniciar sesión para ver esta página");
-        window.location.href = "/pages/CRUD/login.html";
+        window.location.href = "/pages/auth/login.html";
       }
     } catch (error) {
       console.error("Error al obtener la sesión:", error);
