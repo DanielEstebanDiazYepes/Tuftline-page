@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => { //CODIGO PARA LISTA DESPLE
     });
     
     document.getElementById("profile-btn").addEventListener("click", () => {
-      window.location.href = "/pages/CRUD/profile.html"; // ir a la página de perfil
+      window.location.href = "/pages/user/profile.html"; // ir a la página de perfil
     });
   
     document.getElementById("logout-btn").addEventListener("click", async () => {

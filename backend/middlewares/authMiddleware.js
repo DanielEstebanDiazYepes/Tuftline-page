@@ -1,5 +1,12 @@
 const jwt = require("jsonwebtoken");
 
+function ensureAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next(); // debe continuar la ruta
+  }
+  res.status(401).json({ message: "No autorizado" }); // debe responder si no está autenticado
+}
+
 const authMiddleware = (req, res, next) => {
   const authHeader = req.header("Authorization");
   console.log("Auth Header recibido:", authHeader); //  Ver qué llega
@@ -24,7 +31,7 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-const adminMiddleware = (req, res, next) => {
+const adminMiddleware = (req, res, next) => { //ESTO ES PARA LA PAGINA DE LOS ADMINSSSSS RECORDARR!!!!!!!!!!!!!
   if (req.user.role !== "admin") {
     return res
       .status(403)
@@ -45,5 +52,5 @@ const verifyRole = (role) => {
 };
 
 module.exports = authMiddleware;
-module.exports = verifyRole;
+module.exports = ensureAuth;
 

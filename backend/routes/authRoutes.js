@@ -1,30 +1,32 @@
 const express = require("express");
 const passport = require("passport");
 const User = require("../models/users");
-const bcrypt = require("bcryptjs"); 
+const bcrypt = require("bcryptjs");
+const ensureAuth = require("../middlewares/authMiddleware"); // Middleware para verificar autenticación
 const { registerUser, loginUser } = require("../controllers/authController");
 const router = express.Router();
 
 router.post("/register", registerUser); // Ruta para registro
-router.post("/login", loginUser); // Ruta para login
+router.post("/login", loginUser); // Ruta para login +
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 router.get("/google/callback",passport.authenticate("google", { failureRedirect: "/login.html" }),
 
-  (req, res) => {
-    req.session.user = { // Con esto hacemos que el login y el register de google funcionen
-      id: req.user._id,
-      name: req.user.name,
-      address: req.user.address,
-      phone: req.user.phone,
-      email: req.user.email,
-    };
+  (req, res) => {  
     res.redirect("/index.html");
   }
 );
 
 router.get("/me", (req, res) => {
-  if (req.session.user) {
-    res.json({ loggedIn: true, user: req.session.user });
+  if (req.isAuthenticated()) { // Método de Passport
+    res.json({ 
+      loggedIn: true, 
+      user: {
+        id: req.user._id,
+        name: req.user.name,
+        email: req.user.email,
+        role: req.user.role
+      }
+    });
   } else {
     res.json({ loggedIn: false });
   }
@@ -49,13 +51,13 @@ router.get("/logout", (req, res) => {
 });
 
 
-router.put("/update", async (req, res) => {//RUTA PARA ACTUALIZAR LA INFORMACION DEL USUARIO
-  if (!req.session.user) {
+router.put("/update", ensureAuth, async (req, res) => {//RUTA PARA ACTUALIZAR LA INFORMACION DEL USUARIO
+  if (!req.user) {
     return res.status(401).json({ message: "No autorizado" });
   }
 
   try {
-    const userId = req.session.user.id;
+    const userId = req.user._id;
     const { name, address, phone, email, password } = req.body;
 
     const updatedFields = { name, address, phone, email }; //AQUI SE GUARDAN LOS DATOS ACTUALIZADOS (MENOS LA CONTRASEÑA)
@@ -65,16 +67,9 @@ router.put("/update", async (req, res) => {//RUTA PARA ACTUALIZAR LA INFORMACION
       updatedFields.password = await bcrypt.hash(password, salt);
     }
 
-    const user = await User.findByIdAndUpdate(userId, updatedFields, { new: true }); //NO SE QUE HACE AQUI XD
-
-    req.session.user = {//ACTUALIZA LA SESION DEL USUARIO CON LOS NUEVOS DATOS
-      id: user.id,
-      name: user.name,
-      address: user.address,
-      phone: user.phone,
-      email: user.email,
-      role: user.role,
-    };
+    const user = await User.findByIdAndUpdate(userId, updatedFields, { new: true }); //NO SE QUE HACE AQUI 
+    
+  //ACTUALIZA LA SESION DEL USUARIO CON LOS NUEVOS DATOS
 
     res.json({ success: true, user });
   } catch (err) {
@@ -90,7 +85,7 @@ router.delete("/delete", async (req, res) => {//RUTA PARA BORRAR
   }
 
   try {
-    await User.findByIdAndDelete(req.session.user.id);
+    await User.findByIdAndDelete(req.user._id);
     req.session.destroy(() => {
       res.clearCookie("connect.sid");
       res.json({ success: true });
@@ -99,8 +94,5 @@ router.delete("/delete", async (req, res) => {//RUTA PARA BORRAR
     res.status(500).json({ success: false, message: "Error al eliminar la cuenta" });
   }
 });
-
-
-
 
 module.exports = router;
