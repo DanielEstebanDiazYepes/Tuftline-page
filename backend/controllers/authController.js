@@ -71,7 +71,7 @@ const loginUser = async (req, res) => {
         return res.status(500).json({ message: "Error al iniciar sesión" });
       }
 
-      const token = jwt.sign(       // Generar token JWT si lo necesitas para APIs
+      const token = jwt.sign(       // Generar token JWT si lo necesitas para APIs        
         { id: user._id, role: user.role },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
