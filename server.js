@@ -44,8 +44,10 @@ app.use(passport.session());
 const authRoutes = require("./backend/routes/authRoutes"); // Rutas de  log/res de usuarios
 app.use("/api/auth", authRoutes);
 
-const favoritesRoutes = require("./backend/routes/favoritesRoutes"); // Rutas de favoritos
-app.use("/api/favorites", favoritesRoutes); // Usar las rutas de favoritos
+const favoritesRoutes = require("./backend/routes/favoritesRoutes"); //AQUI HAY QUE PONER LAS DE FAV-CART PARA QUE PUEDA FUNCIONAR
+app.use("/api/favorites", favoritesRoutes); 
+const cartRoutes = require("./backend/routes/cartRoutes"); 
+app.use("/api/cart", cartRoutes); 
 
 const productRoutes = require("./backend/routes/productRoutes"); // Rutas de productos
 const storeConnection = require("./backend/config/store_db"); // conectamos a la base de datos de la tienda para guardar los productos

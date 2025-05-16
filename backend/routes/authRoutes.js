@@ -23,6 +23,8 @@ router.get("/me", (req, res) => {
       user: {
         id: req.user._id,
         name: req.user.name,
+        address: req.user.address,
+        phone: req.user.phone,
         email: req.user.email,
         role: req.user.role
       }

@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", async () => { //CODIGO PARA MOSTRA
       if (data.loggedIn) {
         const user = data.user;
         document.getElementById("name").value = user.name || "";
-        document.getElementById("address").value = user.address || "";
-        document.getElementById("phone").value = user.phone || "";
+        document.getElementById("address").value = user.address || "xxx";
+        document.getElementById("phone").value = user.phone || "xxx";
         document.getElementById("email").value = user.email || "";
       } else {
         alert("Debes iniciar sesión para ver esta página");

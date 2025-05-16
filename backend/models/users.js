@@ -29,13 +29,13 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    favorites: [
+    favorites: [ // ARRAY DE LOS PRODUCTOS FAVORITOS ¡¡NO LO BORRES, SI LO HACES NO TIENEN DONDE GUARDARSE!!!
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
       },
     ],
-    cart:[
+    cart:[ // ARRAY DE LOS PRODUCTOS DEL CARRITO ¡¡NO LO BORRES, SI LO HACES NO TIENEN DONDE GUARDARSE!!!
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",

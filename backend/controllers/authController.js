@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-// Registro de usuario
 const registerUser = async (req, res) => {
   try {
     const { name, address, phone, email, password, role } = req.body;

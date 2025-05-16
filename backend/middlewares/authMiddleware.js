@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-function ensureAuth(req, res, next) {
+function ensureAuth(req, res, next) { //CREAMOS ESTE MIDDLEWARE PARA VERIFICAR SI EL USUARIO ESTÁ AUTENTICADO ESTO SE LO PASAREMOS A CADA RUTA QUE QUIERA PROTEGER
   if (req.isAuthenticated()) {
     return next(); // debe continuar la ruta
   }
