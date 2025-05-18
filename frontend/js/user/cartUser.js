@@ -15,6 +15,7 @@ const createMenuIcon = (prod) => {
   
   cartIcon.addEventListener("click", async () => { //EVENTO PARA ELIMINAR UN DE CARRITO
     try {
+      window.location.reload();
       console.log("Eliminando cart con ID:", prod._id);
       await fetch("/api/cart/remove", {
         method: "POST",
