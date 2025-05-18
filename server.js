@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./backend/config/db"); // Importamos la conexión a la BD
+const Product = require('./backend/models/Product');
 const session = require("express-session");
 const passport = require("passport");
 const path = require("path");
@@ -59,6 +60,20 @@ const protectedRoutes = require("./backend/routes/protectedRoutes");// Importar 
 app.use("/api/protected", protectedRoutes);
 
 const PORT = process.env.PORT || 5000;// Puerto del servidor
+
+app.get('/api/products/:id', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ error: 'Producto no encontrado' });
+    res.json(product);
+  } catch (err) {
+    res.status(500).json({ error: 'Error del servidor' });
+  }
+});
+
+app.get('/products/:id', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/pages/user/product-details-page.html'));
+});
 
 app.listen(PORT, () => { // Iniciar el servidor
   console.log(`Servidor corriendo en http://localhost:${PORT}`);

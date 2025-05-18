@@ -13,13 +13,17 @@ const createMenuIcon = (prod) => {
   const cartIcon = menu.querySelector(".icon-cart span");
   const favIcon = menu.querySelector(".icon-favorite span");
   
-  cartIcon.addEventListener("click", () => { //CODIGO PARA CAMBIAR EL ICONO DEL CARRITO
+  cartIcon.addEventListener("click", (e) => {//CODIGO PARA CAMBIAR EL ICONO DEL CARRITO
+    e.stopPropagation(); // Evitar que el evento se propague al div padre
+    e.preventDefault(); // Evitar el comportamiento por defecto del evento
     const isDefault = cartIcon.getAttribute("data-state") === "default"; // SE USA EL ATRIBUTO DATA-STATE PARA SABER SI EL ICONO ES DEFAULT O NO
     cartIcon.textContent = isDefault ? "shopping_cart_off" : "shopping_cart";//SI EL ATRIBUTO ES DEFAULT CAMBIA EL ICONO A shopping_cart_off Y SI NO CAMBIA A shopping_cart
     cartIcon.setAttribute("data-state", isDefault ? "off" : "default");
   });
 
-  favIcon.addEventListener("click", () => {//SE HACE LO MISMO QUE ARRIBA PERO CON EL ICONO DE FAVORITO
+  favIcon.addEventListener("click", (e) => {//SE HACE LO MISMO QUE ARRIBA PERO CON EL ICONO DE FAVORITO
+    e.stopPropagation(); // Evitar que el evento se propague al div padre
+    e.preventDefault(); // Evitar el comportamiento por defecto del evento
     const isDefault = favIcon.getAttribute("data-state") === "default";
     favIcon.textContent = isDefault ? "stars" : "star";
     favIcon.setAttribute("data-state", isDefault ? "on" : "default");
@@ -55,7 +59,6 @@ const createMenuIcon = (prod) => {
     }
   });
 
-  
   return menu;
 };
 
@@ -67,6 +70,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const productos = await response.json();
 
     productos.forEach(prod => {
+      const link_card = document.createElement("a");
+      link_card.href = `/products/${prod._id}`; // CREAMOS LA URL CON LA ID DEL PRODUCTO
+      link_card.className = "product-link-card";
+
       const div = document.createElement("div");//aqui craeamos el div para cada producto
       div.className = "product-card";
       div.innerHTML = `
@@ -87,7 +94,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         menu.style.display = "none";
       });
 
-      container.appendChild(div);
+      link_card.appendChild(div);
+      container.appendChild(link_card);
     });
   } catch (error) {
     console.error("Error al cargar productos:", error);

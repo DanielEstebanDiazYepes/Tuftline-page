@@ -21,6 +21,7 @@ const createMenuIcon = (prod) => {
 
   favIcon.addEventListener("click", async () => { //EVENTO PARA ELIMINAR UN DE FAVORITOS
     try {
+      window.location.reload();
       console.log("Eliminando favorito con ID:", prod._id);
       await fetch("/api/favorites/remove", {
         method: "POST",

@@ -6,6 +6,11 @@
     gap: 20px;
     padding: 20px;
   }
+
+  .product-link-card{
+    text-decoration: none;
+    color: inherit; /* Hereda el color del padre */
+  }
   
   .product-card {
     width: 200px;
