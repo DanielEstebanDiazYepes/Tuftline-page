@@ -59,6 +59,9 @@ connectDB();// Conectar a la base de datos para el log/reg de usuarios
 const protectedRoutes = require("./backend/routes/protectedRoutes");// Importar rutas protegidas
 app.use("/api/protected", protectedRoutes);
 
+const purchaseRoutes = require("./backend/routes/purchaseRoutes");
+app.use("/api/purchase", purchaseRoutes);
+
 const PORT = process.env.PORT || 5000;// Puerto del servidor
 
 app.get('/api/products/:id', async (req, res) => {
