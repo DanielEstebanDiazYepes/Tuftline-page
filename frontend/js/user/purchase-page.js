@@ -8,11 +8,9 @@ async function loadPurchasePage() {
   }
 
   try {
-    // Obtener datos del producto
-    const productRes = await fetch(`/api/products/${productId}`);//OBTENEMOS EL PRODUCTO POR SU ID
+    const productRes = await fetch(`/api/products/${productId}`);//OBTENEMOS EL PRODUCTO POR SU ID USANDO LA API    
     const product = await productRes.json();
 
-    // Obtener datos del usuario
     const userRes = await fetch("/api/protected/user", { //OBTENEMOS EL USUARIO AUTENTICADO
       credentials: "include"
     });
@@ -38,10 +36,29 @@ async function loadPurchasePage() {
     });
 
     // Comprar
-    document.getElementById("confirm-button").addEventListener("click", () => {
-      alert("¡Compra realizada exitosamente! Gracias por tu pedido.");
-      window.location.href = "/"; // Redirige al home
-    });
+    document.getElementById("confirm-button").addEventListener("click", async () => {
+  const quantity = parseInt(document.getElementById("quantity").value);
+  const message = document.getElementById("message").value;
+
+  const response = await fetch("/api/purchase/confirm", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({
+      product,
+      quantity,
+      message,
+    }),
+  });
+
+  if (response.ok) {
+    alert("¡Compra realizada exitosamente! Se ha enviado una factura a tu correo.");
+    window.location.href = "/";
+  } else {
+    alert("Ocurrió un error al confirmar tu compra.");
+  }
+});
+
 
     // Cancelar
     document.getElementById("cancel-button").addEventListener("click", () => {
