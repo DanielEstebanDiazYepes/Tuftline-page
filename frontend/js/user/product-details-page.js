@@ -1,11 +1,8 @@
 async function fetchProductDetails() {
-    console.log("fetchProductDetails se está ejecutando");
     const productId = window.location.pathname.split('/').pop();
-    console.log("Product ID:", productId);
     try {
         const response = await fetch(`/api/products/${productId}`);
         const product = await response.json();
-        console.log("Datos del producto recibidos:", product); // <---- INSPECCIONA ESTE OBJETO
 
         if (product) {
             const productImage = document.getElementById("product-image");
@@ -22,9 +19,14 @@ async function fetchProductDetails() {
             document.querySelector(".product-details-container").innerHTML = "<p>Producto no encontrado.</p>";
         }
     } catch (error) {
-        console.error("Error al cargar los detalles del producto:", error);
         document.querySelector(".product-details-container").innerHTML = "<p>Error al cargar los detalles del producto.</p>";
     }
+
+    document.getElementById("button-purchase-product").addEventListener("click", () => {
+    const productId = window.location.pathname.split('/').pop();//CREAMOS EL EVENTO PARA QUE AL HACER CLICK EN EL BOTON DE COMPRAR SE REDIRECCIONE A LA PAGINA DE COMPRA
+    window.location.href = `/pages/user/purchase-page.html?productId=${productId}`;//LLEVNAOD EL PRODUCTO A LA PAGINA DE COMPRA
+});
+
 }
 
 document.addEventListener("DOMContentLoaded", fetchProductDetails);

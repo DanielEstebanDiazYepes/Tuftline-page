@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proceso de Pago</title>
+  <script src="/js/user/purchase-page.js"></script>
+</head>
+<body>
+  <div id="purchase-container">
+    <h2>Productos</h2>
+    <div id="product-info">
+      <img id="product-image" src="" alt="" width="100"/>
+      <span id="product-name"></span>
+      <label>
+        Uni 
+        <input type="number" id="quantity" value="1" min="1"/>
+      </label>
+      <strong id="total-price"></strong>
+    </div>
+
+    <hr/>
+
+    <div>
+      <p>El pedido llegará a la siguiente dirección</p>
+      <input id="user-address" type="text" readonly/>
+
+      <p>El repartidor se comunicará con usted a este número cuando el pedido llegue</p>
+      <input id="user-phone" type="text" readonly/>
+
+      <p>Información adicional para el repartidor</p>
+      <textarea id="message" placeholder="Mensaje"></textarea>
+
+      <p>El precio total de los productos es <strong id="final-total"></strong></p>
+    </div>
+
+    <p>⚠️ TODOS LOS PRODUCTOS SE PAGAN A CONTRAENTREGA (EFECTIVO)</p>
+
+    <button id="confirm-button">Comprar</button>
+    <button id="cancel-button">Cancelar Compra</button>
+  </div>
+
+  <script src="/js/user/purchase-page.js"></script>
+</body>
+</html>
