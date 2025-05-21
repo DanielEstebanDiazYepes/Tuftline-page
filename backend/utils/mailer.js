@@ -5,7 +5,7 @@ const transporter = nodemailer.createTransport({
   service: "gmail", // o "hotmail", "outlook", o configura un SMTP
   auth: {
     user: "faesdream@gmail.com",    //CREDENCIALES PARA ACCEDER A LA CUENTA DE ENVIO
-    pass: "vvwv jaqw rwed mpnz",     
+    pass: "vvwv jaqw rwed mpnz",    //CONTRASEÑA CREADA PARA LA CUENTA DE ENVIO
   },
 });
 
