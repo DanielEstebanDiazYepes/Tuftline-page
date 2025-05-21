@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     productos.forEach(prod => {
       const link_card = document.createElement("a");
-      link_card.href = `/products/${prod._id}`; // CREAMOS LA URL CON LA ID DEL PRODUCTO
+      link_card.href = `/products/${prod._id}`; // CREAMOS LA URL CON LA ID DEL PRODUCTO PARA QUE ESTE MISMO PUEDA VIAJAR ENTRE PAGINAS
       link_card.className = "product-link-card";
 
       const div = document.createElement("div");//aqui craeamos el div para cada producto

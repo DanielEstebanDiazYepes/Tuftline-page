@@ -63,7 +63,7 @@ const PORT = process.env.PORT || 5000;// Puerto del servidor
 
 app.get('/api/products/:id', async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id);// Buscar el producto por ID
     if (!product) return res.status(404).json({ error: 'Producto no encontrado' });
     res.json(product);
   } catch (err) {
@@ -71,8 +71,8 @@ app.get('/api/products/:id', async (req, res) => {
   }
 });
 
-app.get('/products/:id', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/pages/user/product-details-page.html'));
+app.get('/products/:id', (req, res) => { // Ruta para servir la página de detalles del producto
+  res.sendFile(path.join(__dirname, 'frontend/pages/user/product-details-page.html'));// Enviar el archivo HTML
 });
 
 app.listen(PORT, () => { // Iniciar el servidor
