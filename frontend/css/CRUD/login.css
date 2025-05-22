@@ -1,69 +1,71 @@
 body {
+  background: url('https://img.freepik.com/foto-gratis/vista-superior-surtido-pasteles-dulces_23-2148516578.jpg?semt=ais_hybrid&w=740') no-repeat center center fixed;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background-color: blanchedalmond;
+  align-items: center;
+  height: 100vh;
 }
 
 .container_login {
-  background-color: rgb(67, 148, 149);
-  width: 350px;
-  height: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
-  border-radius: 3%;
-  color: aliceblue;
-  box-shadow: 5px 2px 2px 2px rgb(57, 45, 67);
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  opacity: 0.9;
 }
 
-.form_register {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.text p:first-child {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+  text-align: center;
 }
 
-input {
-  margin: 15px;
-  border-radius: 0.5%;
-  border: none;
-  width: 130%;
-  height: 30px;
-  background-color: transparent;
-  border-bottom: solid black 1px;
+.text p:last-child {
+  font-size: 14px;
+  color: #0e0101;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
-input::placeholder {
-  color: rgb(255, 255, 255);
-  opacity: 1; /* Asegura que el color se vea bien en algunos navegadores */
+.form_register input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.form_register input:focus {
+  outline: none;
+  border-color: #3483fa;
 }
 
 .container_button_create_account {
-  display: flex;
-  justify-content: center;
-  align-items: start;
-  width: 100%;
-  height: 100px;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .button_create_account {
-  display: flex;
-  width: 100%;
-  height: 35px;
-  background-color: aquamarine;
-  border-radius: 5%;
-  position: relative;
-  align-items: center;
-  justify-content: center;
+  background-color: #3483fa;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
   text-decoration: none;
-  color: black;
+  font-weight: bold;
+  display: inline-block;
+  transition: background-color 0.3s ease;
 }
 
 .button_create_account:hover {
-  background-color: blueviolet;
-  transition: 0.7s;
-  box-shadow: 5px 2px 2px 2px rgb(57, 45, 67);
-  color: aliceblue;
+  background-color: #2968c8;
 }

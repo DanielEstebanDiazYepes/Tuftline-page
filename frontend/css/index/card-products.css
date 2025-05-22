@@ -24,6 +24,11 @@
     overflow: hidden;
   }
 
+.product-card:img{ /*AQUI LE PONEMOS UN MEXIMO DE ANCHO Y ALTURA A LAS IMAGENES*/
+  max-width: 200px;
+  max-height: 150px;
+}
+
   .product-card:hover {
     box-shadow: 4px 4px 20px rgba(0,0,0,0.2);
     transition: box-shadow 0.3s ease;
