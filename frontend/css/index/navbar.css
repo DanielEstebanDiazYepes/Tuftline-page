@@ -1,5 +1,5 @@
 .container-items{
-    background-color: #DFF2EB;
+    background-color: #fff6ed;
     width: 100vw;
     height: 80px;
     margin: 0;
@@ -24,7 +24,8 @@
 }
 
 .container-search-filter{
-    background-color: #E8F9FF;
+    background-color: #fdecd4;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
     width: 500px;
     height: 60px;
     display: flex;
@@ -65,7 +66,7 @@
     border-radius: 10px;
     font-size: 15;
     font-weight: bold ;
-    background-color: #E8F9FF;
+    background-color: #faf8f5;
     border: none;
     text-align: center;
 }
