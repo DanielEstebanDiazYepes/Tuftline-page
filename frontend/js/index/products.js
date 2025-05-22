@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       div.innerHTML = `
         <img src="${prod.imageUrl}" alt="${prod.name}" />
         <h3>${prod.name}</h3>
-        <p>${prod.description}</p>
         <strong>$${prod.price}</strong>
       `;
 

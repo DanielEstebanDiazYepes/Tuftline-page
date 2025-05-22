@@ -1,8 +1,7 @@
 const nodemailer = require("nodemailer");
 
-// Configura tu cuenta de envío de correos
 const transporter = nodemailer.createTransport({
-  service: "gmail", // o "hotmail", "outlook", o configura un SMTP
+  service: "gmail",//USAMOS GMAIL
   auth: {
     user: "faesdream@gmail.com",    //CREDENCIALES PARA ACCEDER A LA CUENTA DE ENVIO
     pass: "vvwv jaqw rwed mpnz",    //CONTRASEÑA CREADA PARA LA CUENTA DE ENVIO

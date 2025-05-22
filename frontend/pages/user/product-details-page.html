@@ -1,21 +1,35 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DETALLES DEL PRODUCTO</title>
-    <script src="/js/user/product-details-page.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DETALLES DEL PRODUCTO</title>
+  <script src="/js/user/product-details-page.js"></script>
+  <link rel="stylesheet" href="/css/user-pages/product-details-page.css">
 </head>
 <body>
-    <h1>hola</h1>
-    <div class="product-details-container">
-    <img id="product-image" src="" alt="">
-    <h2 id="product-name"></h2>
-    <p id="product-description"></p>
-    <strong id="product-price"></strong>
+  <h1>AQUÍ PODRÁ VER LA INFORMACIÓN DE LOS PRODUCTOS COMPLETA</h1>
+
+  <div class="product-details-container">
+    <img id="product-image" src="" alt="Imagen del producto">
+
+    <div class="product-info">
+      <div class="product-name-wrapper">
+        <h2 id="product-name"></h2>
+      </div>
+      <div class="product-description-wrapper">
+        <p id="product-description"></p>
+      </div>
+      <div class="product-price-wrapper">
+        <strong id="product-price"></strong>
+      </div>
+      <div class="buttons-container">
+    <button id="button-purchase-product">COMPRAR PRODUCTO</button>
+    <button id="button-cancel-purchase">CANCELAR COMPRA</button>
+      </div>
     </div>
-    <div class="buttons-container">
-        <button id="button-purchase-product">COMPRAR PRODUCTO</button>
-        <button id="button-cancel-purchase">CANCELAR COMPRA</button>
-    </div>
+  </div>
+
+  
 </body>
 </html>
