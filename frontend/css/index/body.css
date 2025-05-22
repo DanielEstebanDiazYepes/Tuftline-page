@@ -8,6 +8,7 @@ main{
 }
 
 body {
+  background-color: #f7f7d8;
   margin: 0;
   padding: 0; 
   overflow-x: hidden; /* Aqui evitamos que el body tenga el desplazamiento horizaontal*/
@@ -18,7 +19,7 @@ body {
   width: 100vw; /* fuerza 100% del ancho visible */
   margin: 0;
   padding: 0;
-  background-image: url(/resources/999.png);
+  background-image: url(/resources/panaderia.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

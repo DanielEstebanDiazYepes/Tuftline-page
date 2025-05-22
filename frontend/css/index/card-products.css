@@ -18,7 +18,7 @@
     padding: 10px;
     border-radius: 8px;
     text-align: center;
-    background: white;
+    background: #f5f5d0;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
     position: relative; /* Importante para posicionar el menú encima de el menu (fav-cart) */
     overflow: hidden;
