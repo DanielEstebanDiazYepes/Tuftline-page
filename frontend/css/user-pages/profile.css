@@ -1,0 +1,72 @@
+body {
+  font-family: Arial, sans-serif;
+  background: url('https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGFuYWRlciVDMyVBRGF8ZW58MHx8MHx8fDA%3D') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Títulos */
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin: 20px 10px;
+  color: #0c0000;
+}
+
+/* Contenedor principal */
+.container_from {
+  max-width: 450px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Formulario */
+.form-profile-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input[type="text"] {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #fff;
+}
+
+/* Botones */
+.container-button-update-information,
+.container-button-delete-account {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.button_update_information {
+  background-color: #3483fa;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.button_update_information:hover {
+  background-color: #2968c8;
+}
+
+.button-dalete-account {
+  background-color: #ff4d4f;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}

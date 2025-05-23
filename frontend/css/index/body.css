@@ -14,7 +14,6 @@ body {
   overflow-x: hidden; /* Aqui evitamos que el body tenga el desplazamiento horizaontal*/
 }
 
-
 .container-banner{
   width: 100vw; /* fuerza 100% del ancho visible */
   margin: 0;
