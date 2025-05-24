@@ -46,23 +46,56 @@ router.post("/cart", async (req, res) => {
     const user = req.user;
     const { cart, message } = req.body;
 
-    // Simular una lógica de "factura" o registro de compra
-    console.log("Compra de carrito por:", user.email);
-    console.log("Productos:", cart);
-    console.log("Mensaje:", message);
+    if (!cart || cart.length === 0) {
+      return res.status(400).json({ error: "Carrito vacío" });
+    }
 
-    // Aquí podrías registrar la compra en tu base de datos
+    let total = 0;
 
-    // Opcional: vaciar el carrito del usuario después de la compra
-    const Cart = require("../models/Cart");
-    await Cart.findOneAndUpdate({ userId: user._id }, { $set: { products: [] } });
+    const productListHTML = cart.map((product) => {
+      const quantity = parseInt(product.quantity) || 1;
+      const subtotal = product.price * quantity;
+      total += subtotal;
 
-    res.json({ success: true, message: "Compra realizada" });
+      return `
+        <li>
+          <strong>${product.name}</strong><br/>
+          Precio unitario: $${product.price} <br/>
+          Cantidad: ${quantity} <br/>
+          Subtotal: $${subtotal}
+        </li>
+        <hr/>
+      `;
+    }).join("");
+
+    const html = `
+      <h2>¡Gracias por tu compra, ${user.name}!</h2>
+      <p>Tu pedido fue procesado exitosamente. Aquí están los detalles:</p>
+      <h3>Productos:</h3>
+      <ul>
+        ${productListHTML}
+      </ul>
+      <h3>Total de la compra: $${total}</h3>
+      <h3>Datos de envío:</h3>
+      <ul>
+        <li><strong>Dirección:</strong> ${user.address}</li>
+        <li><strong>Teléfono:</strong> ${user.phone}</li>
+      </ul>
+      ${message ? `<p><strong>Mensaje adicional:</strong> ${message}</p>` : ""}
+      <hr/>
+      <p>Nos comunicaremos contigo cuando tu pedido esté en camino.</p>
+    `;
+
+    await sendPurchaseReceipt(user.email, "Factura de tu compra en Tienda Online", html);
+
+    res.json({ success: true, message: "Compra y factura enviadas" });
+
   } catch (err) {
     console.error("Error al procesar la compra del carrito:", err);
     res.status(500).json({ error: "Error del servidor al procesar la compra" });
   }
 });
+
 
 
 module.exports = router;
