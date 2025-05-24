@@ -41,4 +41,28 @@ router.post("/confirm", async (req, res) => {
   }
 });
 
+router.post("/cart", async (req, res) => {
+  try {
+    const user = req.user;
+    const { cart, message } = req.body;
+
+    // Simular una lógica de "factura" o registro de compra
+    console.log("Compra de carrito por:", user.email);
+    console.log("Productos:", cart);
+    console.log("Mensaje:", message);
+
+    // Aquí podrías registrar la compra en tu base de datos
+
+    // Opcional: vaciar el carrito del usuario después de la compra
+    const Cart = require("../models/Cart");
+    await Cart.findOneAndUpdate({ userId: user._id }, { $set: { products: [] } });
+
+    res.json({ success: true, message: "Compra realizada" });
+  } catch (err) {
+    console.error("Error al procesar la compra del carrito:", err);
+    res.status(500).json({ error: "Error del servidor al procesar la compra" });
+  }
+});
+
+
 module.exports = router;
