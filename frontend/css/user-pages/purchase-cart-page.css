@@ -15,11 +15,17 @@ body {
 }
 
 span {
-  color: #856404;
-  width: 470px;
+  font-weight: bold;
+  font-size: 18px;
+  width: 450px;
   display: grid;
   gap: 60px;
-  align-items: reverse;
+}
+
+strong {
+  font-size: 20px;
+  color: #00a650;
+  font-weight: bold;
 }
 
 input[type="number"] {
@@ -56,20 +62,11 @@ input[type="number"] {
   font-size: 16px;
 }
 
-.product-price {
-  font-size: 18px;
-  color: #00a650;
-  font-weight: bold;
-}
-
 .product-cart-item{
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .product-details {
