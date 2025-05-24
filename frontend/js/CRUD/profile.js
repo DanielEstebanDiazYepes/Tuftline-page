@@ -60,10 +60,11 @@ document.getElementById("update-information").addEventListener("click", async (e
     try {
       const res = await fetch("/api/auth/delete", {
         method: "DELETE",
-        credentials: "include",
+        credentials: "include"
       });
-  
+      
       const data = await res.json();
+
       if (data.success) {
         alert("Tu cuenta ha sido eliminada.");
         window.location.href = "/index.html";

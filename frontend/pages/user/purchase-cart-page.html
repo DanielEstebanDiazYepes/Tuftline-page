@@ -1,0 +1,39 @@
+<!-- frontend/pages/user/purchase-cart.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirmar compra del carrito</title>
+  <script src="/js/user/purchaseCart.js"></script>
+  <link rel="stylesheet" href="/css/user-pages/purchase-cart-page.css">
+</head>
+<body>
+  <div id="purchase-container">
+    <h2>Resumen de Compra</h2>
+
+    <div id="product-list">
+      <div class="product-item" id="product-item"></div>
+    </div>
+
+    <div>
+      <p>EL PEDIDO LLEGARÁ A LA SIGUIENTE DIRECCIÓN</p>
+      <input id="user-address" type="text" readonly/>
+
+      <p>EL REPARTIDOR SE COMUNICARÁ CON USTED A ESTE NÚMERO CUANDO EL PEDIDO LLEGUE</p>
+      <input id="user-phone" type="text" readonly/>
+
+      <p>INFORMACIÓN ADICIONAL PARA EL REPARTIDOR (OPCIONAL)</p>
+      <textarea id="message" placeholder="Indicaciones adicionales para el repartidor"></textarea>
+
+      <p>EL PRECIO TOTAL DE LA COMPRA ES DE <strong id="final-total"></strong></p>
+    </div>
+
+    <p>⚠️ TODOS LOS PRODUCTOS SE PAGAN A CONTRAENTREGA (EFECTIVO)</p>
+
+    <button id="confirm-button">Confirmar Compra</button>
+    <button id="cancel-button">Cancelar Compra</button>
+  </div>
+  
+</body>
+</html>

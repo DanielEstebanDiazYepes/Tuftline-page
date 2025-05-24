@@ -81,20 +81,33 @@ router.put("/update", ensureAuth, async (req, res) => {//RUTA PARA ACTUALIZAR LA
 });
 
 
-router.delete("/delete", async (req, res) => {//RUTA PARA BORRAR 
-  if (!req.session.user) {
+router.delete("/delete", ensureAuth, async (req, res) => {
+  if (!req.user) {
     return res.status(401).json({ message: "No autorizado" });
   }
 
   try {
     await User.findByIdAndDelete(req.user._id);
-    req.session.destroy(() => {
-      res.clearCookie("connect.sid");
-      res.json({ success: true });
+
+    req.logout((err) => {
+      if (err) {
+        return res.status(500).json({ success: false, message: "Error al cerrar sesión" });
+      }
+      
+      req.session.destroy((err) => {
+        if (err) {
+          return res.status(500).json({ success: false, message: "Error al destruir sesión" });
+        }
+
+        res.clearCookie("connect.sid");
+        res.json({ success: true });
+      });
     });
   } catch (error) {
+    console.error("Error al eliminar cuenta:", error);
     res.status(500).json({ success: false, message: "Error al eliminar la cuenta" });
   }
 });
+
 
 module.exports = router;

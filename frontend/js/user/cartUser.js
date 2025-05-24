@@ -58,7 +58,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         menu.style.display = "none";
       });
 
+      document.getElementById("buy-cart").addEventListener("click", () => {
+      window.location.href = "/pages/user/purchase-cart-page.html";
+    });
+
       container.appendChild(div);
     });
   });
+
+
+
+
 

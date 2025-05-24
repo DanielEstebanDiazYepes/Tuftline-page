@@ -1,0 +1,149 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 20px;
+}
+
+#purchase-container {
+  background-color: #ffffff;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+span {
+  color: #856404;
+  width: 470px;
+  display: grid;
+  gap: 60px;
+  align-items: reverse;
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    margin-left: 5px;
+  }
+
+#product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.product-item {
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 10px;
+  
+}
+
+.product-item img {
+  max-width: 100px;
+  height: auto;
+  border-radius: 8px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+.product-quantity {
+  font-size: 16px;
+}
+
+.product-price {
+  font-size: 18px;
+  color: #00a650;
+  font-weight: bold;
+}
+
+.product-cart-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-details {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+hr {
+  margin: 30px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+p {
+  margin: 10px 0 5px;
+  font-size: 14px;
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+#final-total {
+  font-size: 20px;
+  color: #00a650;
+  font-weight: bold;
+}
+
+#purchase-container > p:last-of-type {
+  background-color: #fff3cd;
+  padding: 10px;
+  border-left: 5px solid #ffc107;
+  font-size: 14px;
+  color: #856404;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+#confirm-button, #cancel-button {
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 15px;
+  transition: background-color 0.3s ease;
+}
+
+#confirm-button {
+  background-color: #3483fa;
+  color: white;
+}
+
+#confirm-button:hover {
+  background-color: #2968c8;
+}
+
+#cancel-button {
+  background-color: #ebebeb;
+  color: #333;
+}
+
+#cancel-button:hover {
+  background-color: #d5d5d5;
+}
