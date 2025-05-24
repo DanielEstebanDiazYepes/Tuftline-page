@@ -62,4 +62,21 @@ router.get("/",ensureAuth, async (req, res) => {
   }
 });
 
+router.post("/clear", async (req, res) => {
+  try {
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({ error: "No autenticado" });
+    }
+
+    const userId = req.user._id;
+
+    await User.findByIdAndUpdate(userId, { $set: { cart: [] } });
+
+    res.json({ success: true, message: "Carrito vaciado correctamente" });
+  } catch (err) {
+    console.error("Error al vaciar el carrito:", err);
+    res.status(500).json({ error: "Error al vaciar el carrito" });
+  }
+});
+
 module.exports = router; // Este archivo define las rutas para agregar, eliminar y listar productos favoritos de un usuario.
