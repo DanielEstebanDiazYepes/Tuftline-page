@@ -17,4 +17,16 @@ router.post('/', async (req, res) => { // Agregar un nuevo producto
   }
 });
 
+router.get('/search/:query', async (req, res) => {
+  try {
+    const regex = new RegExp(req.params.query, 'i');
+    const products = await Product.find({ name: { $regex: regex } });
+    res.json(products);
+  } catch (err) {
+    console.error("Error en búsqueda:", err);
+    res.status(500).json({ error: "Error al buscar productos" });
+  }
+});
+
+
 module.exports = router;

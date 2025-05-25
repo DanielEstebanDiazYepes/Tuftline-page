@@ -1,3 +1,7 @@
+body{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 .container-items{
     background-color: #fff6ed;
     width: 100vw;
@@ -16,7 +20,16 @@
     top: 20px;
     display: inline-block;
     height: 40px;
-    left: 30px;
+    left: 60px;
+}
+
+.user-info{
+    position: relative;
+    top: 40px;
+    left: 530px;
+    height: 30px;
+    width: 260px;
+    font-size: 17px;
 }
 
 .container-search{
@@ -26,16 +39,16 @@
 .container-search-filter{
     background-color: #fdecd4;
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
-    width: 500px;
+    width: 400px;
     height: 60px;
     display: flex;
     gap: 15px;
     position: relative;
-    top: 10px;
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    right: 120px;
+    right: 290px;
+    top: 10px;
 }
 
 .bar_search{
@@ -44,22 +57,14 @@
     border-radius: 0px;
     height: 45px;
     bottom: 1px;
-
-}
-
-.select_format{
-    position: relative;
-    width: 80px;
-    bottom: 1px;
-    border-radius: 0px;
-    height: 45px;
-
 }
 
 .icon-search{
     position: relative;
-    bottom: 1px;
-    right: 10px;
+    top: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .bar_search, .select_format{ /* aqui estilo en conjunto estos dos elementos para agruegar estilos especificos */
@@ -71,7 +76,7 @@
     text-align: center;
 }
 
-.bar_search:focus,.select_format:focus{ /* aqui agrego efectos en conjunto */
+.bar_search:focus{ 
     border:5px solid #aee1f3;          
     outline:none ;
 }
@@ -86,6 +91,8 @@
 }
 
 .container_shopping_cart-favorite-profile_icon{
+    position: relative;
+    left: 30px;
     display: flex;
     flex-direction: row;
     gap: 30px;
@@ -96,13 +103,13 @@
 .user-select {
     position: relative;
     display: inline-block;
-  }
+}
   
-  .select-trigger {
+.select-trigger {
     cursor: pointer;
-  }
+}
   
-  .select-options {
+.select-options {
     position: absolute;
     top: 100%; /* Justo debajo del icono */
     left: 50%;
@@ -114,20 +121,21 @@
     display: none;
     min-width: 140px;
     z-index: 999;
-  }
+}
   
-  .user-select.open .select-options {
+.user-select.open .select-options {
     display: block;
-  }
+}
   
-  .option {
+.option {
+    font-size: 20px;
     padding: 10px;
     cursor: pointer;
     text-align: center;
     color: #333;
-  }
+}
   
-  .option:hover {
+.option:hover {
     background-color: #f2f2f2;
-  }
+}
   

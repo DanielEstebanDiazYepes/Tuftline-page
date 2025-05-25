@@ -3,6 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>pagina principal</title>
     <!-- Mantuve el título de feature/cuerpo -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/index/navbar.css" />
     <link rel="stylesheet" href="/css/index/body.css" />
     <link rel="stylesheet" href="/css/index/card-products.css" />
@@ -25,38 +26,19 @@
             />
           </a>
         </div>
-        <div id="user-info" class="user-info"></div>
+        <div id ="user-info-container">
+        <div id ="user-info" class="user-info"></div><!-- EL CODIGO DE ESTO ESTA EN (navbar-funtionalities) -->
+        </div>
         <div class="container-search-filter">
-          <div class="col_select_format">
-            <select class="select_format">
-              <option>Todos</option>
-              <option>Bebidas</option>
-              <option>Arinas</option>
-              <option>Golosinas</option>
-            </select>
-          </div>
-  
           <div class="container-search">
-            <form class="text_search">
-              <input
-                type="text"
-                class="bar_search"
-                placeholder="Busta tu producto"
-              />
-            </form>
-          </div>
-          <div class="icon-search">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="currentColor"
-                d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"
-              />
+            <form class="text_search" id="search-form">
+              <input type="text" class="bar_search" id="search-input" placeholder="Busta tu producto"/>
+              <button class="icon-search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor"d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/>
             </svg>
+            </button>
+            </form>
           </div>
         </div>
   
@@ -79,7 +61,7 @@
                   </div>
                   <div class="select-options">
                     <div class="option" id="profile-btn">Mi perfil</div>
-                    <div class="option">Facturas</div>
+                    <!--<div class="option">Facturas</div>-->
                     <div class="option" id="logout-btn">Cerrar sesión</div>
                   </div>
                 </div>                

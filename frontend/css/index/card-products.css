@@ -24,10 +24,10 @@
     overflow: hidden;
   }
 
-.product-card:img{ /*AQUI LE PONEMOS UN MEXIMO DE ANCHO Y ALTURA A LAS IMAGENES*/
+  .product-card:img{ /*AQUI LE PONEMOS UN MEXIMO DE ANCHO Y ALTURA A LAS IMAGENES*/
   max-width: 200px;
   max-height: 150px;
-}
+  }
 
   .product-card:hover {
     box-shadow: 4px 4px 20px rgba(0,0,0,0.2);
@@ -54,7 +54,7 @@
     top: 10px;
     right: 0px;
     width: 40px;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: #eeeee9;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     border-radius: 8px;
     display: flex;
@@ -63,6 +63,7 @@
     gap: 8px;
     padding: 8px;
     z-index: 10;
+    opacity: 0.8; /* Opacidad para el icono del menú */
   }
   
   .menu-icon:hover {
