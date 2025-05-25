@@ -64,17 +64,42 @@ const createMenuIcon = (prod) => {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("product-container");
+  const form = document.querySelector(".text_search");
+  const input = document.querySelector(".bar_search");
+  const iconSearch = document.querySelector(".icon-search");
 
-  try {
-    const response = await fetch("/api/products");
-    const productos = await response.json();
+  iconSearch.addEventListener("click", () => {
+    form.requestSubmit(); // Hace que se dispare el evento submit del formulario
+  });
 
-    productos.forEach(prod => {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const query = input.value.trim();
+    if (!query) return;
+
+    try {
+      const res = await fetch(`/api/products/search/${encodeURIComponent(query)}`);
+      const products = await res.json();
+      renderProducts(products);
+    } catch (err) {
+      console.error("Error al buscar productos:", err);
+    }
+  });
+  // FUNCIONES AUXILIARES
+  const renderProducts = (products) => {
+    container.innerHTML = ""; // Limpiar contenedor
+
+    if (products.length === 0) {
+      container.innerHTML = "<p>No se encontraron productos.</p>";
+      return;
+    }
+
+    products.forEach(prod => {
       const link_card = document.createElement("a");
-      link_card.href = `/products/${prod._id}`; // CREAMOS LA URL CON LA ID DEL PRODUCTO PARA QUE ESTE MISMO PUEDA VIAJAR ENTRE PAGINAS
+      link_card.href = `/products/${prod._id}`;
       link_card.className = "product-link-card";
 
-      const div = document.createElement("div");//aqui craeamos el div para cada producto
+      const div = document.createElement("div");
       div.className = "product-card";
       div.innerHTML = `
         <img src="${prod.imageUrl}" alt="${prod.name}" />
@@ -86,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       menu.style.display = "none";
       div.appendChild(menu);
 
-      div.addEventListener("mouseenter", () => {  // Mostrar y ocultar el menú en hover
+      div.addEventListener("mouseenter", () => {
         menu.style.display = "flex";
       });
       div.addEventListener("mouseleave", () => {
@@ -96,7 +121,34 @@ document.addEventListener("DOMContentLoaded", async () => {
       link_card.appendChild(div);
       container.appendChild(link_card);
     });
-  } catch (error) {
-    console.error("Error al cargar productos:", error);
-  }
+  };
+
+  const loadAllProducts = async () => {
+    try {
+      const response = await fetch("/api/products");
+      const productos = await response.json();
+      renderProducts(productos);
+    } catch (error) {
+      console.error("Error al cargar productos:", error);
+    }
+  };
+
+  // 🔍 Buscador
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const query = input.value.trim();
+    if (!query) return;
+
+    try {
+      const res = await fetch(`/api/products/search/${encodeURIComponent(query)}`);
+      const products = await res.json();
+      renderProducts(products);
+    } catch (err) {
+      console.error("Error al buscar productos:", err);
+      container.innerHTML = "<p>Error al buscar productos.</p>";
+    }
+  });
+
+  // Cargar todos los productos inicialmente
+  loadAllProducts();
 });
