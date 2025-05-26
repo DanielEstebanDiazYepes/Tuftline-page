@@ -1,15 +1,21 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favorites</title>
+    <title>Mis Favoritos</title>
     <link rel="stylesheet" href="/css/index/card-products.css" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="/css/user-pages/favorites.css" />
-    <script src="https://kit.fontawesome.com/791268bd33.js"crossorigin="anonymous"></script>
-    <script src="/js/user/favorite.js"></script>
+    <link rel="stylesheet" href="/css/index/navbar.css" /> <script src="https://kit.fontawesome.com/791268bd33.js" crossorigin="anonymous"></script>
+
+    <script src="/js/dynamic-navbar/dynamic-navbar-features.js" defer></script>
+    <script src="/js/components/dynamic-navbar-loader.js" defer></script>
+    <script src="/js/user/favorite.js" defer></script>
 </head>
 <body>
+    <header id="navbar-container"></header> 
+
     <h1>LISTA DE PRODUCTOS FAVORITOS</h1>
     
     <div id="favorites-container" class="product-grid"></div>
