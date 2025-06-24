@@ -1,19 +1,137 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAGINA DE ADMIN</title>
+    <title>Panel de Administración - Panadería La Obra de Dios</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/admin/dashboard.css">
+    <script src="/js/admin/dashboard.js"></script>
 </head>
 <body>
-    <H1>ESTA ES LA PAGINA DEL ADMIN</H1>
-    <script>document.addEventListener("DOMContentLoaded", function () {
-        const userRole = localStorage.getItem("role");
-    
-        if (userRole !== "admin") {
-            alert("Acceso denegado. No tienes permisos para ver esta página.");
-            window.location.href = "index.html"; // Redirigir al usuario normal
-        }
-    });
-    </script>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="/resources/LA OBRA DE DIOS LOGO.png" alt="Logo Panadería">
+            </div>
+            <nav>
+                <ul>
+                    <li class="active" data-tab="products-tab">
+                        <i class="material-icons">inventory_2</i> Productos
+                    </li>
+                    <li data-tab="orders-tab">
+                        <i class="material-icons">receipt</i> Órdenes
+                    </li>
+                    <li data-tab="users-tab">
+                        <i class="material-icons">people</i> Usuarios
+                    </li>
+                </ul>
+            </nav>
+            <button id="logout-btn" class="logout-btn">
+                <i class="material-icons">logout</i> Cerrar Sesión
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Products Tab -->
+            <section id="products-tab" class="tab-content active">
+                <h2>Gestión de Productos</h2>
+                <button id="add-product-btn" class="btn-primary">
+                    <i class="material-icons">add</i> Nuevo Producto
+                </button>
+                <div class="table-container">
+                    <table id="products-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Imagen</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-list">
+                            <!-- Productos cargados con JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Orders Tab -->
+            <section id="orders-tab" class="tab-content">
+                <h2>Órdenes de Compra</h2>
+                <div class="table-container">
+                    <table id="orders-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Productos</th>
+                                <th>Total</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-list">
+                            <!-- Órdenes cargadas con JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Users Tab (Opcional) -->
+            <section id="users-tab" class="tab-content">
+                <h2>Usuarios Registrados</h2>
+                <div class="table-container">
+                    <table id="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-list">
+                            <!-- Usuarios cargados con JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para agregar/editar productos -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Agregar Producto</h2>
+            <form id="product-form">
+                <input type="hidden" id="product-id">
+                <div class="form-group">
+                    <label for="product-name">Nombre</label>
+                    <input type="text" id="product-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Precio</label>
+                    <input type="number" id="product-price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-description">Descripción</label>
+                    <textarea id="product-description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product-image">Imagen (URL)</label>
+                    <input type="text" id="product-image" required>
+                </div>
+                <button type="submit" class="btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/admin/admin.js"></script>
 </body>
 </html>

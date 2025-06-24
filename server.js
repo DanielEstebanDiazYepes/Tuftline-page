@@ -7,6 +7,8 @@ const session = require("express-session");
 const passport = require("passport");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const adminProductsRouter = require("./backend/routes/adminProducts");
+const adminOrdersRouter = require("./backend/routes/adminOrders");
 require("./backend/config/passport");
 
 dotenv.config(); // Configurar variables de entorno
@@ -47,6 +49,9 @@ app.use(passport.session());
 
 const authRoutes = require("./backend/routes/authRoutes"); // Rutas de  log/res de usuarios
 app.use("/api/auth", authRoutes);
+
+app.use("/api/admin/products", adminProductsRouter);
+app.use("/api/admin/orders", adminOrdersRouter);
 
 const favoritesRoutes = require("./backend/routes/favoritesRoutes"); //AQUI HAY QUE PONER LAS DE FAV-CART PARA QUE PUEDA FUNCIONAR
 app.use("/api/favorites", favoritesRoutes); 

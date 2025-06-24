@@ -1,0 +1,232 @@
+document.addEventListener("DOMContentLoaded", async () => {
+    // Verificar si el usuario es admin
+    const checkAdmin = async () => {
+        try {
+            const res = await fetch("/api/auth/me", { credentials: "include" });
+            const data = await res.json();
+            
+            if (!res.ok || data.user.role !== "admin") {
+                window.location.href = "/index.html";
+            }
+        } catch (err) {
+            window.location.href = "/index.html";
+        }
+    };
+
+    await checkAdmin();
+
+    // Elementos del DOM
+    const productsTab = document.getElementById("products-tab");
+    const ordersTab = document.getElementById("orders-tab");
+    const usersTab = document.getElementById("users-tab");
+    const tabLinks = document.querySelectorAll(".sidebar li");
+    const logoutBtn = document.getElementById("logout-btn");
+    const addProductBtn = document.getElementById("add-product-btn");
+    const productModal = document.getElementById("product-modal");
+    const closeModal = document.querySelector(".close-modal");
+    const productForm = document.getElementById("product-form");
+
+    // Cargar datos iniciales
+    const loadProducts = async () => {
+        try {
+            const res = await fetch("/api/products");
+            const products = await res.json();
+            renderProducts(products);
+        } catch (err) {
+            console.error("Error al cargar productos:", err);
+        }
+    };
+
+    const loadOrders = async () => {
+        try {
+            const res = await fetch("/api/orders");
+            const orders = await res.json();
+            renderOrders(orders);
+        } catch (err) {
+            console.error("Error al cargar órdenes:", err);
+        }
+    };
+
+    // Renderizar productos en la tabla
+    const renderProducts = (products) => {
+        const tbody = document.getElementById("products-list");
+        tbody.innerHTML = "";
+
+        products.forEach((product) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${product._id}</td>
+                <td>${product.name}</td>
+                <td>$${product.price.toFixed(2)}</td>
+                <td><img src="${product.imageUrl}" alt="${product.name}" width="50"></td>
+                <td>
+                    <button class="btn-primary edit-product" data-id="${product._id}">
+                        <i class="material-icons">edit</i>
+                    </button>
+                    <button class="btn-danger delete-product" data-id="${product._id}">
+                        <i class="material-icons">delete</i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        // Agregar eventos a los botones
+        document.querySelectorAll(".edit-product").forEach(btn => {
+            btn.addEventListener("click", (e) => openEditModal(e.target.closest("button").dataset.id));
+        });
+
+        document.querySelectorAll(".delete-product").forEach(btn => {
+            btn.addEventListener("click", (e) => deleteProduct(e.target.closest("button").dataset.id));
+        });
+    };
+
+    // Renderizar órdenes
+    const renderOrders = (orders) => {
+        const tbody = document.getElementById("orders-list");
+        tbody.innerHTML = "";
+
+        orders.forEach((order) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${order._id}</td>
+                <td>${order.user.name}</td>
+                <td>${order.products.length} productos</td>
+                <td>$${order.total.toFixed(2)}</td>
+                <td>${new Date(order.createdAt).toLocaleDateString()}</td>
+                <td>
+                    <button class="btn-primary view-order" data-id="${order._id}">
+                        <i class="material-icons">visibility</i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    };
+
+    // Abrir modal para editar/agregar producto
+    const openEditModal = async (productId = null) => {
+        const modalTitle = document.getElementById("modal-title");
+        const form = document.getElementById("product-form");
+
+        if (productId) {
+            modalTitle.textContent = "Editar Producto";
+            // Cargar datos del producto
+            try {
+                const res = await fetch(`/api/products/${productId}`);
+                const product = await res.json();
+                
+                document.getElementById("product-id").value = product._id;
+                document.getElementById("product-name").value = product.name;
+                document.getElementById("product-price").value = product.price;
+                document.getElementById("product-description").value = product.description || "";
+                document.getElementById("product-image").value = product.imageUrl;
+            } catch (err) {
+                console.error("Error al cargar producto:", err);
+            }
+        } else {
+            modalTitle.textContent = "Agregar Producto";
+            form.reset();
+        }
+
+        productModal.style.display = "flex";
+    };
+
+    // Eliminar producto
+    const deleteProduct = async (productId) => {
+        if (!confirm("¿Estás seguro de eliminar este producto?")) return;
+
+        try {
+            const res = await fetch(`/api/admin/products/${productId}`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+
+            if (res.ok) {
+                loadProducts();
+            } else {
+                alert("Error al eliminar producto");
+            }
+        } catch (err) {
+            console.error("Error al eliminar producto:", err);
+        }
+    };
+
+    // Enviar formulario de producto
+    productForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const productId = document.getElementById("product-id").value;
+        const isEdit = !!productId;
+
+        const productData = {
+            name: document.getElementById("product-name").value,
+            price: parseFloat(document.getElementById("product-price").value),
+            description: document.getElementById("product-description").value,
+            imageUrl: document.getElementById("product-image").value
+        };
+
+        try {
+            const url = isEdit ? `/api/admin/products/${productId}` : "/api/products";
+            const method = isEdit ? "PUT" : "POST";
+
+            const res = await fetch(url, {
+                method,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify(productData)
+            });
+
+            if (res.ok) {
+                productModal.style.display = "none";
+                loadProducts();
+            } else {
+                alert("Error al guardar producto");
+            }
+        } catch (err) {
+            console.error("Error al guardar producto:", err);
+        }
+    });
+
+    // Cambiar entre pestañas
+    tabLinks.forEach(link => {
+        link.addEventListener("click", () => {
+            tabLinks.forEach(l => l.classList.remove("active"));
+            link.classList.add("active");
+
+            document.querySelectorAll(".tab-content").forEach(tab => {
+                tab.classList.remove("active");
+            });
+
+            const tabId = link.getAttribute("data-tab");
+            document.getElementById(tabId).classList.add("active");
+
+            // Cargar datos de la pestaña seleccionada
+            if (tabId === "products-tab") loadProducts();
+            if (tabId === "orders-tab") loadOrders();
+        });
+    });
+
+    // Cerrar sesión
+    logoutBtn.addEventListener("click", async () => {
+        try {
+            await fetch("/api/auth/logout", { credentials: "include" });
+            window.location.href = "/index.html";
+        } catch (err) {
+            console.error("Error al cerrar sesión:", err);
+        }
+    });
+
+    // Abrir modal para agregar producto
+    addProductBtn.addEventListener("click", () => openEditModal());
+
+    // Cerrar modal
+    closeModal.addEventListener("click", () => {
+        productModal.style.display = "none";
+    });
+
+    // Cargar productos al inicio
+    loadProducts();
+});
