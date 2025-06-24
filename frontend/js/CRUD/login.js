@@ -20,7 +20,7 @@ try {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.user.role); // User el "data.user.role" para poder acceder al rol del usuario logueado y redirigirlo a la pagina correspondiente
         if (data.user.role === "admin") {
-            window.location.href = "/admin.html"; // Página de administración
+            window.location.href = "/pages/admin/dashboard.html"; // Página de administración
         } else {
             window.location.href = "/index.html"; // Página de usuario normal
         }
