@@ -3,6 +3,7 @@ const storeConnection = require('../config/store_db');
 
 const productSchema = new mongoose.Schema({
   name: String,
+  type: String,
   description: String,
   price: Number,
   imageUrl: String

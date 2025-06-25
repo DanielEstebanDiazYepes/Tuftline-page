@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             tr.innerHTML = `
                 <td>${product._id}</td>
                 <td>${product.name}</td>
+                <td>${product.type}</td>
                 <td>$${product.price.toFixed(2)}</td>
                 <td><img src="${product.imageUrl}" alt="${product.name}" width="50"></td>
                 <td>
@@ -118,6 +119,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 
                 document.getElementById("product-id").value = product._id;
                 document.getElementById("product-name").value = product.name;
+                document.getElementById("product-type").value = product.type || "";
                 document.getElementById("product-price").value = product.price;
                 document.getElementById("product-description").value = product.description || "";
                 document.getElementById("product-image").value = product.imageUrl;
@@ -161,6 +163,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const productData = {
             name: document.getElementById("product-name").value,
+            type: document.getElementById("product-type").value || "",
             price: parseFloat(document.getElementById("product-price").value),
             description: document.getElementById("product-description").value,
             imageUrl: document.getElementById("product-image").value
