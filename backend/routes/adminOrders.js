@@ -38,25 +38,43 @@ router.get("/:id", async (req, res) => {
 });
 
 // Actualizar estado de una orden
-router.put("/:id/status", async (req, res) => {
+router.put("/:id", async (req, res) => {
+    const { status } = req.body;
+
+    if (!["pending", "processing", "completed", "cancelled"].includes(status)) {
+        return res.status(400).json({ error: "Estado inválido" });
+    }
+
     try {
-        const { status } = req.body;
-        
-        if (!["pending", "completed", "cancelled"].includes(status)) {
-            return res.status(400).json({ error: "Estado no válido" });
-        }
-        
-        const updatedOrder = await Order.findByIdAndUpdate(
-            req.params.id,
-            { status },
-            { new: true }
-        );
-        
-        res.json(updatedOrder);
+        const order = await Order.findById(req.params.id);
+        if (!order) return res.status(404).json({ error: "Orden no encontrada" });
+
+        order.status = status;
+        await order.save();
+
+        res.json({ message: "Estado actualizado correctamente" });
     } catch (err) {
-        console.error("Error al actualizar orden:", err);
-        res.status(500).json({ error: "Error al actualizar orden" });
+        console.error("Error al actualizar estado:", err);
+        res.status(500).json({ error: "Error al actualizar estado" });
     }
 });
+
+
+//Ruta para eliminar una orden
+router.delete("/:id/", async (req, res) => {
+    try {
+        const order = await Order.findByIdAndDelete(req.params.id);
+
+        if (!order) {
+            return res.status(404).json({ error: "Orden no encontrada" });
+        }
+
+        res.json({ message: "Orden eliminada correctamente" });
+    } catch (err) {
+        console.error("Error al eliminar orden:", err);
+        res.status(500).json({ error: "Error al eliminar orden" });
+    }
+});
+
 
 module.exports = router;

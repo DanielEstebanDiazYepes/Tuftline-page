@@ -157,4 +157,22 @@ body{
 .option:hover {
     background-color: #f2f2f2;
 }
-  
+
+ #admin-float-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #28a745;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: background-color 0.3s;
+  }
+
+  #admin-float-btn:hover {
+    background-color: #218838;
+  }

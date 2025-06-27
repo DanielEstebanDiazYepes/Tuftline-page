@@ -40,28 +40,39 @@ async function loadPurchasePage() {
     });
 
     // Comprar
-    document.getElementById("confirm-button").addEventListener("click", async () => {
+    document.getElementById("confirm-button").addEventListener("click", async (e) => {
+  const confirmButton = e.target;
+  confirmButton.disabled = true; // Evita múltiples clics
+
   const quantity = parseInt(document.getElementById("quantity").value);
   const message = document.getElementById("message").value;
 
-  const response = await fetch("/api/purchase/confirm", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({
-      product,
-      quantity,
-      message,
-    }),
-  });
+  try {
+    const response = await fetch("/api/purchase/confirm", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        product,
+        quantity,
+        message,
+      }),
+    });
 
-  if (response.ok) {
-    alert("¡Compra realizada exitosamente! Se ha enviado una factura a tu correo.");
-    window.location.href = "/";
-  } else {
-    alert("Ocurrió un error al confirmar tu compra.");
+    if (response.ok) {
+      alert("¡Compra realizada exitosamente! Se ha enviado una factura a tu correo.");
+      window.location.href = "/";
+    } else {
+      alert("Ocurrió un error al confirmar tu compra.");
+    }
+  } catch (err) {
+    console.error("Error al confirmar compra:", err);
+    alert("Error de red o del servidor.");
+  } finally {
+    confirmButton.disabled = false; // Vuelve a habilitar si ocurre un error
   }
 });
+
 
 
     // Cancelar

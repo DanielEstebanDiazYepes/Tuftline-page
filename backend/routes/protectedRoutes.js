@@ -16,7 +16,7 @@ router.get("/dashboard", authMiddleware, (req, res) => {
 router.get("/user", (req, res) => {// Ruta para obtener datos del usuario autenticado
   if (req.isAuthenticated()) {
     const { name, email, address, phone } = req.user;
-    res.json({ name, email, address, phone });
+    res.json({ name, email, address, phone});
   } else {
     res.status(401).json({ error: "Usuario no autenticado" });
   }

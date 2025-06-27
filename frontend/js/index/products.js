@@ -179,5 +179,6 @@ const createMenuIcon = (prod) => {
         }
     });
 
+
     return menu;
 };
