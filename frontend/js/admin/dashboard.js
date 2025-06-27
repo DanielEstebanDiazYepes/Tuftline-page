@@ -153,7 +153,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <h4>${product.name}</h4>
                         <p><strong>Cantidad:</strong> ${product.quantity || 1}</p>
                         <p><strong>Precio unitario:</strong> $${(product.price || 0).toFixed(2)}</p>
-                        <p><strong>Subtotal:</strong> $${((product.price || 0) * (product.quantity || 1)).toFixed(2)}</p>
                     </div>
                 </div>
             `).join("");
@@ -197,23 +196,92 @@ document.addEventListener("DOMContentLoaded", async () => {
                         
                         <div class="order-section">
                             <h3>Estado</h3>
-                            ${getStatusBadge(order.status)}
+                            <select id="order-status-select" class="order-status-select">
+                                <option value="pending" ${order.status === "pending" ? "selected" : ""}>Pendiente</option>
+                                <option value="processing" ${order.status === "processing" ? "selected" : ""}>En proceso</option>
+                                <option value="completed" ${order.status === "completed" ? "selected" : ""}>Completado</option>
+                                <option value="cancelled" ${order.status === "cancelled" ? "selected" : ""}>Cancelado</option>
+                            </select>
                         </div>
                         
+                        <button class="btn-success update-status-btn" data-id="${order._id}">
+                            <i class="material-icons">save</i> Guardar Estado
+                        </button>
                         <button class="btn-primary print-btn" onclick="window.print()">
                             <i class="material-icons">print</i> Imprimir Factura
+                        </button>
+                        <button class="btn-danger delete-order-btn" data-id="${order._id}">
+                            <i class="material-icons">delete</i> Eliminar Factura
                         </button>
                     </div>
                 </div>
             `;
 
-            // Insertar el modal en el DOM
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
+// Insertar el modal en el DOM
+document.body.insertAdjacentHTML('beforeend', modalHTML);
             
-            // Configurar evento para cerrar el modal
-            document.querySelector('.order-details-modal .close-modal').addEventListener('click', () => {
-                document.querySelector('.order-details-modal').remove();
-            });
+ // Configurar evento para cerrar el modal
+document.querySelector('.order-details-modal .close-modal').addEventListener('click', () => {
+    document.querySelector('.order-details-modal').remove();
+});
+
+            // Evento para cerrar el modal
+document.querySelector('.order-details-modal .close-modal').addEventListener('click', () => {
+    document.querySelector('.order-details-modal').remove();
+});
+
+// Evento para eliminar la factura
+document.querySelector('.delete-order-btn').addEventListener('click', async (e) => {
+    const orderId = e.target.closest('button').dataset.id;
+
+    if (!confirm("¿Estás seguro de que deseas eliminar esta factura?")) return;
+
+    try {
+        const res = await fetch(`/api/admin/orders/${orderId}`, {
+            method: "DELETE",
+            credentials: "include"
+        });
+
+        if (!res.ok) throw new Error("Error al eliminar la factura");
+
+        showAlert("Factura eliminada correctamente", "success");
+
+        // Quitar modal y recargar órdenes
+        document.querySelector('.order-details-modal').remove();
+        loadOrders();
+    } catch (err) {
+        console.error("Error al eliminar factura:", err);
+        showAlert("No se pudo eliminar la factura", "error");
+    }
+});
+
+// Evento para actualizar estado
+document.querySelector('.update-status-btn').addEventListener('click', async (e) => {
+    const orderId = e.target.closest('button').dataset.id;
+    const newStatus = document.getElementById('order-status-select').value;
+
+    try {
+        const res = await fetch(`/api/admin/orders/${orderId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({ status: newStatus })
+        });
+
+        if (!res.ok) throw new Error("Error al actualizar estado");
+
+        showAlert("Estado actualizado correctamente", "success");
+        document.querySelector('.order-details-modal').remove();
+        loadOrders();
+    } catch (err) {
+        console.error("Error al actualizar estado:", err);
+        showAlert("No se pudo actualizar el estado", "error");
+    }
+});
+
+
             
         } catch (err) {
             console.error("Error al cargar detalles de la orden:", err);
@@ -223,13 +291,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     };
 
+    
     // Función auxiliar para mostrar el estado
     function getStatusBadge(status) {
         const statusMap = {
-            pending: { text: 'Pendiente', class: 'pending' },
+            pending:    { text: 'Pendiente', class: 'pending' },
             processing: { text: 'En proceso', class: 'processing' },
-            completed: { text: 'Completado', class: 'completed' },
-            cancelled: { text: 'Cancelado', class: 'cancelled' }
+            completed:  { text: 'Completado', class: 'completed' },
+            cancelled:  { text: 'Cancelado', class: 'cancelled' }
         };
         
         const statusInfo = statusMap[status] || { text: status, class: 'unknown' };

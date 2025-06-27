@@ -12,6 +12,7 @@
     <script src="https://kit.fontawesome.com/791268bd33.js"crossorigin="anonymous"></script>
     <script src="/js/index/products.js"></script>
     <script src="/js/index/navbar-Functionalities.js"></script>
+    <script src="/js/index/btn-admin.js"></script>
 </head>
 <body>
     <header>
@@ -35,8 +36,14 @@
             </form>
           </div>
         </div>
- 
-        <div class="container-list">
+        <!-- Dentro del body, por ejemplo en la cabecera o nav -->
+        <div id="admin-panel-link" >
+          <!-- Botón flotante para administrador -->
+          <a href="/pages/admin/dashboard.html" id="admin-float-btn" style="display: none; position: fixed; bottom: 20px; right: 20px; background-color: #007bff; color: white; padding: 12px 20px; border-radius: 30px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); text-decoration: none; font-weight: bold; z-index: 999;"> ⚙️ Admin </a>
+
+        </div>
+
+        <div class="container-list"> <!-- Dentro del body, por ejemplo en la cabecera o nav -->
           <ul class="container_shopping_cart-favorite-profile_icon">
             <li>
               <a href="/pages/user/cart.html" class="shopping_cart">

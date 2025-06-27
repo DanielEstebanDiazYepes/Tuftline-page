@@ -1,30 +1,37 @@
-document.addEventListener("DOMContentLoaded", () => { //CODIGO PARA LISTA DESPLEGABLE DE USUARIO (PERFIL Y CERRAR SESIÓN)
-
-    const select = document.querySelector(".user-select");
-  
+document.addEventListener("DOMContentLoaded", async () => {
+  // --- DESPLEGABLE DEL USUARIO ---
+  const select = document.querySelector(".user-select");
+  if (select) {
     select.addEventListener("click", (e) => {
-      e.stopPropagation();                      // Evita que se cierre instantáneamente
+      e.stopPropagation();
       select.classList.toggle("open");
     });
-  
-    document.addEventListener("click", () => {  // Cierra el menú al hacer clic fuera
+
+    document.addEventListener("click", () => {
       select.classList.remove("open");
     });
-    
-    document.getElementById("profile-btn").addEventListener("click", () => {
-      window.location.href = "/pages/user/profile.html"; // ir a la página de perfil
+  }
+
+  // --- BOTONES DE PERFIL Y CERRAR SESIÓN ---
+  const profileBtn = document.getElementById("profile-btn");
+  if (profileBtn) {
+    profileBtn.addEventListener("click", () => {
+      window.location.href = "/pages/user/profile.html";
     });
-  
-    document.getElementById("logout-btn").addEventListener("click", async () => {
+  }
+
+  const logoutBtn = document.getElementById("logout-btn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", async () => {
       try {
         const res = await fetch("/api/auth/logout", {
           method: "GET",
           credentials: "include",
         });
-    
+
         const data = await res.json();
         if (data.success) {
-          window.location.href = ""; // <-- REDIRECCIÓN
+          window.location.href = "/";
         } else {
           alert("No se pudo cerrar sesión.");
         }
@@ -32,27 +39,31 @@ document.addEventListener("DOMContentLoaded", () => { //CODIGO PARA LISTA DESPLE
         console.error("Error al cerrar sesión:", err);
       }
     });
-    
-  });
+  }
 
-  
-  fetch("/api/auth/me", {
-    credentials: "include"
-  })
-    .then((res) => res.json())// Codigo para mostrar el nombre del usuario (SU SESION) en la parte superior derecha de la pagina
-    .then((data) => {
-      console.log("✅ Datos de sesión:", data);
-      const userInfoDiv = document.querySelector(".user-info");
-      const hideDiv = document.getElementById("container-btn-log-reg-text");
-
-      if (data.loggedIn) {
-        userInfoDiv.textContent = `Hola, ${data.user.name}`;
-        
-        if (hideDiv) { // Oculta el div si el usuario está logueado
-          hideDiv.style.display = "none"; 
-        }
-
-      } else {
-        userInfoDiv.textContent = "No has iniciado sesión.";
-      }
+  // --- VERIFICAR SESIÓN DEL USUARIO Y MOSTRAR NOMBRE ---
+  try {
+    const sessionRes = await fetch("/api/auth/me", {
+      credentials: "include",
     });
+    const data = await sessionRes.json();
+    console.log("✅ Datos de sesión:", data);
+
+    const userInfoDiv = document.querySelector(".user-info");
+    const hideDiv = document.getElementById("container-btn-log-reg-text");
+
+    if (data.loggedIn) {
+      userInfoDiv.textContent = `Hola, ${data.user.name}`;
+
+      if (hideDiv) {
+        hideDiv.style.display = "none";
+      }
+    } else {
+      userInfoDiv.textContent = "No has iniciado sesión.";
+    }
+  } catch (err) {
+    console.error("Error al cargar datos de sesión:", err);
+  }
+
+
+});

@@ -29,7 +29,7 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["pending", "completed", "cancelled"],
+        enum: ["pending", "processing", "completed", "cancelled"],
         default: "pending"
     },
     message: { type: String } // Mensaje adicional del cliente
