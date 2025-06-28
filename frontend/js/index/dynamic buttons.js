@@ -17,4 +17,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error al obtener info del usuario:", err);
     adminBtn.remove(); // Seguridad: oculta el botón si hay error
   }
+
+try {
+    const res = await fetch("/api/auth/me", { credentials: "include" });
+    const data = await res.json();
+
+    if (data.loggedIn) {
+      document.getElementById("facturas-btn").style.display = "inline-block";
+    }
+  } catch (err) {
+    console.error("Error verificando sesión:", err);
+  }
+
 });

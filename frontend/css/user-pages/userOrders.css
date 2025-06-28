@@ -1,0 +1,163 @@
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif; /* A more modern, flat font */
+    background-color: #f8f9fa; /* Very light grey, almost white, for a clean base */
+    margin: 0; /* Remove default body margin */
+    padding: 20px;
+    color: #343a40; /* Darker text for better contrast and serious tone */
+    line-height: 1.6;
+}
+
+h1 {
+    color: #343a40;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    font-weight: 600;
+    text-align: left; /* Align title to left */
+    padding-left: 20px; /* Indent slightly for alignment with cards */
+}
+
+#facturas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Slightly less gap for a more compact look */
+    max-width: 960px; /* Slightly wider container */
+    margin: 0 auto; /* Center the container */
+    padding: 0 15px; /* Padding for small screens */
+}
+
+.factura {
+    background-color: #ffffff; /* Pure white for cards */
+    border-radius: 6px; /* Slightly less rounded corners for a flatter look */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Softer, less pronounced shadow */
+    padding: 20px 25px; /* More horizontal padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 1px solid #e9ecef; /* Subtle light border for definition */
+}
+
+.factura h3 {
+    margin: 0;
+    font-size: 1.1em; /* Slightly smaller, more refined font size */
+    color: #495057; /* Muted dark grey for headings */
+    font-weight: 600; /* Bolder for ID */
+    flex: 2; /* Gives more space to the ID */
+    min-width: 150px;
+    white-space: nowrap; /* Prevent ID from wrapping */
+    overflow: hidden; /* Hide overflow if it gets too long */
+    text-overflow: ellipsis; /* Add ellipsis for long IDs */
+}
+
+.factura p {
+    margin: 0; /* Remove default paragraph margins */
+    font-size: 0.95em; /* Slightly smaller text for details */
+    color: #6c757d; /* Softer grey for general text */
+    flex: 1; /* Distribute space */
+    min-width: 100px; /* Minimum width for readability */
+    text-align: center; /* Center align text like in the image */
+}
+
+.factura p:first-of-type { /* For the total */
+    font-weight: 700; /* Bolder total */
+    color: #007bff; /* Keep a standard blue for total */
+    text-align: right; /* Align total to the right for financial look */
+    padding-right: 20px; /* Space from status */
+}
+
+/* Status styling - using classes as recommended for robustness */
+.factura .status-tag { /* General tag styling */
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px; /* Slightly rounded corners for the tag */
+    font-weight: 600; /* Bolder text for status */
+    font-size: 0.85em; /* Slightly smaller font for the tag */
+    text-transform: uppercase; /* Uppercase status for a more administrative feel */
+    color: #fff; /* Default text color for status tags */
+    text-align: center;
+    min-width: 80px; /* Ensure tags have consistent width */
+}
+
+/* Specific status colors - more muted tones */
+.status-completado {
+    background-color: #28a745; /* Bootstrap success green */
+}
+
+.status-pendiente {
+    background-color: #ffc107; /* Bootstrap warning yellow */
+    color: #343a40; /* Dark text for better contrast on yellow */
+}
+
+.status-cancelado {
+    background-color: #dc3545; /* Bootstrap danger red */
+}
+
+.factura button {
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: white;
+    padding: 8px 18px; /* Slightly more horizontal padding */
+    border: none;
+    border-radius: 4px; /* Slightly less rounded button */
+    cursor: pointer;
+    font-size: 0.9em; /* Slightly smaller button text */
+    font-weight: 500;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease; /* Softer transition */
+    flex-shrink: 0;
+    margin-left: 20px; /* More space from status */
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Subtle button shadow */
+}
+
+.factura button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15); /* Slightly more prominent shadow on hover */
+}
+
+#facturas-container > p { /* Target the specific paragraph for "No tienes facturas" */
+    text-align: center;
+    color: #777;
+    font-size: 1.1em;
+    margin-top: 50px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1 {
+        text-align: center;
+        padding-left: 0;
+    }
+    .factura {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+    }
+
+    .factura h3,
+    .factura p,
+    .factura button {
+        width: 100%;
+        text-align: left; /* Align text to left in column layout */
+        margin-left: 0;
+        margin-bottom: 8px; /* Reduce margin for stacked items */
+    }
+
+    .factura p:first-of-type { /* Total */
+        text-align: left;
+        padding-right: 0;
+    }
+
+    .factura .status-tag {
+        margin-top: 5px; /* Add some space above status tag */
+        width: auto; /* Allow status tag to shrink wrap content */
+        text-align: left; /* Align tag to left */
+    }
+
+    .factura button {
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
+}

@@ -53,6 +53,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/admin/products", adminProductsRouter);
 app.use("/api/admin/orders", adminOrdersRouter);
 
+app.use("/api/user", require("./backend/routes/userOrders")); // RUTA PARA QUE EL USUARIO PUEDA VER SUS FACTURAS-PEDIDOS
+
 const favoritesRoutes = require("./backend/routes/favoritesRoutes"); //AQUI HAY QUE PONER LAS DE FAV-CART PARA QUE PUEDA FUNCIONAR
 app.use("/api/favorites", favoritesRoutes); 
 const cartRoutes = require("./backend/routes/cartRoutes"); 
