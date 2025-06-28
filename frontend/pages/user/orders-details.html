@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="/css/user-pages/ordersDetails.css">
+
+<h1>Detalle de factura</h1>
+<div id="detalle-container"></div>
+<button onclick="window.print()">🖨️ Imprimir factura</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+
+    try {
+      const res = await fetch(`/api/user/orders`);
+      const orders = await res.json();
+
+      const order = orders.find(o => o._id === id);
+      if (!order) return alert("Factura no encontrada.");
+
+      const cont = document.getElementById("detalle-container");
+
+      cont.innerHTML = `
+        <p>Cliente: ${order.userName}</p>
+        <p>Email: ${order.userEmail}</p>
+        <p>Dirección: ${order.shippingAddress.address}</p>
+        <p>Teléfono: ${order.shippingAddress.phone}</p>
+        <p>Total: $${order.total}</p>
+        <hr/>
+        <h3>Productos:</h3>
+        <ul>
+          ${order.products.map(p => `
+            <li>${p.name} - $${p.price} x ${p.quantity}</li>
+          `).join("")}
+        </ul>
+      `;
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  });
+</script>
