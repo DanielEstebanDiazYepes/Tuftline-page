@@ -1,194 +1,128 @@
+/* Estilos generales */
 body {
-    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-    background-color: #f8f9fa; /* Consistent light background */
-    margin: 0;
-    padding: 20px;
-    color: #343a40; /* Consistent dark text */
+    font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content horizontally */
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
 }
 
-h1 {
-    color: #343a40;
-    margin-bottom: 30px;
-    font-size: 2.2em;
-    font-weight: 600;
-    text-align: center; /* Center the title */
-    width: 100%; /* Ensure title takes full width */
-}
-
+/* Contenedor principal */
 #detalle-container {
-    background-color: #ffffff; /* White background for the main content area */
-    border-radius: 8px; /* Slightly rounded corners */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* More pronounced shadow for a main card */
-    padding: 30px;
-    max-width: 700px; /* Max width for readability, similar to a document */
-    width: 100%; /* Ensure it takes full width up to max-width */
-    margin-bottom: 30px; /* Space below the container */
-    border: 1px solid #e9ecef; /* Subtle border */
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 25px;
 }
 
-#detalle-container p {
-    margin-bottom: 10px; /* Space between paragraphs */
-    font-size: 1em;
-    display: flex; /* Use flexbox for label-value alignment */
-    justify-content: space-between; /* Pushes label to left, value to right */
-    padding-bottom: 5px; /* Little space before a potential border */
-    border-bottom: 1px dotted #dee2e6; /* Dotted line like an invoice */
+/* Encabezado de la orden */
+.order-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
 }
 
-#detalle-container p:last-of-type { /* Remove border for the last info item (Total) */
-    border-bottom: none;
-    margin-bottom: 0;
+.order-header p {
+    margin: 8px 0;
+    font-size: 15px;
 }
 
-#detalle-container p strong {
-    color: #495057; /* Stronger color for labels if you add them */
-    font-weight: 600;
+.order-header p:first-child {
+    font-weight: bold;
+    color: #555;
+    font-size: 16px;
 }
 
-/* Style for the "Total" line to make it stand out */
-#detalle-container p:nth-child(5) { /* This targets the 5th <p> element (Total) */
-    font-size: 1.2em;
-    font-weight: 700;
-    color: #007bff; /* Highlight total */
-    border-top: 2px solid #6c757d; /* Stronger line above total */
-    padding-top: 15px;
-    margin-top: 20px;
+/* Mensaje adicional */
+.aditional-message {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    border-left: 4px solid #ddd;
 }
 
-#detalle-container hr {
-    border: none;
-    border-top: 1px solid #dee2e6; /* Clean horizontal rule */
-    margin: 25px 0; /* Spacing for the HR */
-}
-
-#detalle-container h3 {
-    color: #343a40;
-    font-size: 1.5em;
+.aditional-message h3 {
     margin-top: 0;
+    color: #444;
+    font-size: 18px;
+}
+
+.aditional-message p {
+    margin-bottom: 0;
+    font-style: italic;
+    color: #666;
+}
+
+/* Sección de productos */
+.section-order-products h3 {
+    color: #444;
+    font-size: 18px;
     margin-bottom: 15px;
-    border-bottom: 2px solid #007bff; /* Blue underline for section headings */
     padding-bottom: 8px;
-    display: inline-block; /* Make underline only as wide as text */
+    border-bottom: 1px solid #eee;
 }
 
-#detalle-container ul {
-    list-style: none; /* Remove default bullet points */
-    padding: 0;
-    margin: 0;
-}
-
-#detalle-container ul li {
-    padding: 8px 0;
-    border-bottom: 1px dotted #e9ecef; /* Dotted line between list items */
-    font-size: 1em;
-    color: #495057;
+/* Productos individuales */
+.order-product {
     display: flex;
-    justify-content: space-between; /* Align product name left, price/qty right */
-}
-
-#detalle-container ul li:last-child {
-    border-bottom: none; /* No border for the last list item */
-}
-
-/* Print button styling */
-button {
-    background-color: #6c757d; /* Muted grey for a utility button */
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 500;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    display: flex; /* To align icon and text */
     align-items: center;
-    gap: 8px; /* Space between icon and text */
+    gap: 20px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #fafafa;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    transition: background-color 0.2s;
 }
 
-button:hover {
-    background-color: #5a6268;
-    transform: translateY(-1px); /* Slight lift on hover */
+.order-product:hover {
+    background-color: #f5f5f5;
 }
 
-/* Print styles - hide button when printing */
-@media print {
-    body {
-        background-color: #fff;
-        margin: 0;
-        padding: 0;
-    }
-    button {
-        display: none; /* Hide the print button when printing */
-    }
-    #detalle-container {
-        box-shadow: none; /* Remove shadow for printing */
-        border: none; /* Remove border for printing */
-        max-width: 100%; /* Use full width for print */
-        width: auto;
-        padding: 0;
-        margin-bottom: 0;
-    }
-    h1 {
-        margin-top: 20px;
-    }
-    #detalle-container p,
-    #detalle-container ul li {
-        border-bottom: 1px solid #ccc; /* Solid lines for print clarity */
-        padding-bottom: 8px;
-    }
-    #detalle-container p:last-of-type {
-        border-bottom: 1px solid #6c757d; /* Ensure total has a line */
-    }
-    #detalle-container h3 {
-        border-bottom: 2px solid #000; /* Black underline for print */
-    }
-    /* Ensure colors are print-friendly (often black/greyscale) */
-    p, li, h1, h3 {
-        color: #000 !important;
-    }
-    .status-tag, .status-completado, .status-pendiente, .status-cancelado {
-        background-color: transparent !important;
-        color: #000 !important;
-        border: 1px solid #000; /* Outline status for print */
-    }
+.order-product img {
+    border-radius: 4px;
+    object-fit: cover;
+    border: 1px solid #e0e0e0;
 }
 
+.product-info {
+    flex: 1;
+}
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    body {
-        padding: 15px;
-    }
-    h1 {
-        font-size: 1.8em;
-        margin-bottom: 20px;
-    }
-    #detalle-container {
-        padding: 20px;
-        border-radius: 6px;
-    }
-    #detalle-container p,
-    #detalle-container ul li {
-        flex-direction: column; /* Stack label and value */
-        align-items: flex-start;
-        padding-bottom: 10px;
-    }
-    #detalle-container p span:first-child { /* Assuming you wrap the label in a span */
-        font-weight: 600;
-        margin-bottom: 3px;
-    }
-    #detalle-container p:nth-child(5) { /* Total line */
-        flex-direction: row; /* Keep total on one line if possible */
-        justify-content: space-between;
-    }
-    button {
-        width: 100%; /* Full width button on small screens */
-        justify-content: center; /* Center icon and text */
-        margin-top: 20px;
-    }
+.product-info h4 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.product-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.product-info p strong {
+    color: #444;
+}
+
+/* Total */
+#detalle-container > p:last-child {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    color: #222;
+}
+
+/* Líneas divisorias */
+hr {
+    border: none;
+    height: 1px;
+    background-color: #eee;
+    margin: 15px 0;
 }
