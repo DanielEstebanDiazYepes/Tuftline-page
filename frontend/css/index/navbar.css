@@ -17,7 +17,7 @@ body{
 }
 
 .container-items{
-    background-color: #fff6ed;
+    background-color: #daedf5;
     width: 100vw;
     height: 80px;
     margin: 0;
@@ -39,8 +39,9 @@ body{
 }
 
 .img_logo{
-    width: 200px;
+    width: 50%;
     position: relative;
+    bottom: 20px;
 }
 
 .user-info{
@@ -177,3 +178,22 @@ body{
   #admin-float-btn:hover {
     background-color: #218838;
   }
+
+  /* Agregar al final del archivo */
+@media (max-width: 768px) {
+  .container-items {
+    padding: 10px 0;
+  }
+  
+  #user-info-container {
+    order: 3;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+  }
+  
+  #admin-panel-link {
+    position: static;
+    margin-top: 10px;
+  }
+}

@@ -1,0 +1,166 @@
+/* responsive.css */
+
+/* Estilos generales para móviles */
+@media (max-width: 768px) {
+  /* Header y navbar */
+  .container-items {
+    height: auto;
+    padding: 10px 0;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container_logo {
+    left: 0;
+    top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .img_logo {
+    width: 40%;
+    bottom: 0;
+  }
+
+  .container-search-filter {
+    width: 90%;
+    right: 0;
+    top: 0;
+    margin: 10px 0;
+  }
+
+  .bar_search {
+    width: 80%;
+  }
+
+  .container-list {
+    right: 0;
+    top: 0;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .container_shopping_cart-favorite-profile_icon {
+    left: 0;
+    gap: 20px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .user-info {
+    left: 0;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Banner principal */
+  .conteiner-main {
+    height: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .conteiner-row {
+    height: auto;
+  }
+
+  .conteiner-info {
+    left: 0;
+    width: 100%;
+    top: 20px;
+    text-align: center;
+  }
+
+  .conteiner-button {
+    flex-direction: column;
+    width: 100%;
+    left: 0;
+    top: 20px;
+  }
+
+  .button {
+    width: 80%;
+    padding: 10px 0;
+  }
+
+  /* Slider de categorías */
+  .crossselling-products {
+    padding: 1rem;
+  }
+
+  .product-card-slider {
+    width: 150px;
+  }
+
+  .product-card-slider img {
+    width: 140px;
+    height: 100px;
+  }
+
+  /* Productos */
+  .product-grid {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .product-card {
+    width: 45%;
+    height: auto;
+    min-height: 250px;
+  }
+
+  /* Footer */
+  .footer-content {
+    flex-direction: column;
+  }
+
+  .footer-section {
+    margin: 15px 0;
+    text-align: center;
+  }
+
+  .footer-section.contact span {
+    text-align: center;
+  }
+
+  .footer-section.links ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .footer-section.links ul li {
+    margin: 0;
+  }
+
+  /* Botón de admin */
+  #admin-float-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas (ej. smartphones pequeños) */
+@media (max-width: 480px) {
+  .product-card {
+    width: 100%;
+  }
+
+  .product-card-slider {
+    width: 120px;
+  }
+
+  .product-card-slider img {
+    width: 110px;
+    height: 80px;
+  }
+
+  .container_shopping_cart-favorite-profile_icon {
+    gap: 15px;
+    font-size: 20px;
+  }
+}
+
+

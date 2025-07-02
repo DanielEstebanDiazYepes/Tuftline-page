@@ -80,3 +80,15 @@
 .btn-cart:hover {
   background-color: #e65c00;
 }
+
+
+/* Agregar al final del archivo */
+@media (max-width: 768px) {
+  .product-slider {
+    padding-bottom: 0.5rem;
+  }
+  
+  .product-card-slider h5 {
+    font-size: 0.9rem;
+  }
+}

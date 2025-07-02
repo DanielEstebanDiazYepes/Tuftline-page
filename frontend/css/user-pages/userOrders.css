@@ -1,7 +1,12 @@
 /* Estilos generales del contenedor de la tabla (opcional, si el contenedor tiene padding o fondo) */
+body {
+    background-image: url(https://wallpapers.com/images/hd/colorful-abstract-rainbow-curves-f8k2vqktrxalk6ya.jpg);
+    background-size: cover;
+}
+
 #facturas-container {
     padding: 20px;
-    background-color: #f8f9fa; /* Un fondo muy claro para el área general */
+    background-color: #daedf5; /* Un fondo muy claro para el área general */
     border-radius: 8px;
 }
 

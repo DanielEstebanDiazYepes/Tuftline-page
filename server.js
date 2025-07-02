@@ -1,7 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const connectDB = require("./backend/config/db"); // Importamos la conexión a la BD
+const connectDB = require("./backend/config/db");
 const Product = require('./backend/models/Product');
 const session = require("express-session");
 const passport = require("passport");
@@ -9,11 +9,15 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const adminProductsRouter = require("./backend/routes/adminProducts");
 const adminOrdersRouter = require("./backend/routes/adminOrders");
+const mobileRedirect = require("./backend/middlewares/mobileRedirectMiddleware");
+
 require("./backend/config/passport");
 
 dotenv.config(); // Configurar variables de entorno
 
 const app = express(); //Iniciamos express
+
+app.get("/", mobileRedirect("index.html", "/pages/mobile-pages/mobile-index.html"));
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "frontend")));

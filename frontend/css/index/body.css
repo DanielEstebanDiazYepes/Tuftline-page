@@ -101,3 +101,18 @@ body {
   font-weight: bold;
   z-index: 999;
 }
+
+
+
+/* Agregar al final del archivo */
+@media (max-width: 768px) {
+  .container-banner {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  main {
+    padding-top: 150px; /* Ajuste para el navbar en móvil */
+  }
+}
