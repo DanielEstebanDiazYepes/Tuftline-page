@@ -70,3 +70,31 @@ input[type="text"] {
   text-decoration: none;
   font-weight: bold;
 }
+
+@media (max-width: 760px) {
+
+  body{
+    background-size: auto;
+  }
+
+  .container_from {
+    width: 80%;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin: 15px 5px;
+  }
+
+  input[type="text"] {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .button_update_information,
+  .button-dalete-account {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+}

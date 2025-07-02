@@ -110,3 +110,54 @@ button {
 #button-cancel-purchase:hover {
   background-color: #d5d5d5;
 }
+
+@media (max-width: 768px) {
+
+  .product-details-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    gap: 20px;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  #product-image {
+    max-width: 90%;
+    height: auto;
+  }
+
+  .product-info {
+    width: 100%;
+    padding: 0 10px;
+    align-items: center;
+    text-align: center;
+  }
+
+  #product-name {
+    font-size: 20px;
+  }
+
+  #product-description {
+    font-size: 14px;
+  }
+
+  #product-price {
+    position: relative;;
+    font-size: 22px;
+    margin-top: 10px;
+    bottom: 40px;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    top: auto;
+  }
+
+  button {
+    width: 90%;
+    font-size: 15px;
+  }
+}

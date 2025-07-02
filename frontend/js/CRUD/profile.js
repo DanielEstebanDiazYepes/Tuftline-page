@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async () => { //CODIGO PARA MOSTRAR LA INFORMACION DEL USUARIO EN EL FORMULARIO
+/*document.addEventListener("DOMContentLoaded", async () => { //CODIGO PARA MOSTRAR LA INFORMACION DEL USUARIO EN EL FORMULARIO
     try {
       const res = await fetch("/api/auth/me", { credentials: "include" });
       const data = await res.json();
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => { //CODIGO PARA MOSTRA
     } catch (error) {
       console.error("Error al obtener la sesión:", error);
     }
-  });
+  });*/
 
 
   

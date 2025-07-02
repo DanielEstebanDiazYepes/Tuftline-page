@@ -73,7 +73,7 @@ const renderCartProducts = (products) => {
 
     products.forEach(product => { //LE PASAMOS EL PARAMETRO DE PRODUCTO A LA FUNCION PARA QUE PUEDA RECIBIR LA INFORMACION NECESARIA PARA ELIMINAR EL PRODUCTO
         const link_card = document.createElement("a");
-        link_card.href = `/products/${product._id}`; // Asegúrate que esta ruta sea correcta para ver detalles del producto
+        link_card.href = `/products/${product._id}`;
         link_card.className = "product-link-card";
 
         const div = document.createElement("div");
