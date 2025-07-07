@@ -8,7 +8,7 @@ main{
 }
 
 body {
-  background-color: #f7f7d8;
+  background-color: #e8f5fa;
   margin: 0;
   padding: 0; 
   overflow-x: hidden; /* Aqui evitamos que el body tenga el desplazamiento horizaontal*/

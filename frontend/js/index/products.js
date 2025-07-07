@@ -2,16 +2,11 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
     const container = document.getElementById("product-container");
-    const form = document.getElementById("search-form"); // Usa el ID del formulario
-    const input = document.getElementById("search-input"); // Usa el ID del input
-    // const iconSearch = document.querySelector(".icon-search"); // Ya no es necesario si usas el ID en el botón
+    const form = document.getElementById("search-form");
+    const input = document.getElementById("search-input");
 
-    // Ya no es necesario `iconSearch.addEventListener("click", () => { form.requestSubmit(); });`
-    // porque la delegación de eventos y el evento 'submit' en el form ya lo manejan.
-
-    // FUNCIONES AUXILIARES (mantienen tu lógica)
     const renderProducts = (products) => {
-        container.innerHTML = ""; // Limpiar contenedor
+        container.innerHTML = "";
 
         if (products.length === 0) {
             container.innerHTML = "<p>No se encontraron productos.</p>";
@@ -26,12 +21,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             const div = document.createElement("div");
             div.className = "product-card";
             div.innerHTML = `
-                <img src="${prod.imageUrl}" alt="${prod.name}" />
+                <img src="${prod.imageUrl}" alt="${prod.name}" class="image-products" />
                 <h3>${prod.name}</h3>
                 <strong>$${prod.price}</strong>
             `;
 
-            const menu = createMenuIcon(prod); // Asumiendo que createMenuIcon sigue existiendo
+            const menu = createMenuIcon(prod);
             menu.style.display = "none";
             div.appendChild(menu);
 
@@ -57,67 +52,74 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     };
 
-    // --- DELEGACIÓN DE EVENTOS PARA LA BARRA DE BÚSQUEDA DEL NAVBAR DE INDEX ---
-    // Esto es para el formulario con ID 'search-form'
+    // BÚSQUEDA
     document.addEventListener('submit', (event) => {
         if (event.target && event.target.id === 'search-form') {
-            event.preventDefault(); // Evitar el envío tradicional del formulario
+            event.preventDefault();
 
             const searchInput = event.target.querySelector('#search-input');
             const searchTerm = searchInput ? searchInput.value.trim() : '';
-
-            // Llama a tu función de búsqueda existente
             handleProductSearch(searchTerm); 
         }
     });
 
-    // Esto es para el clic en el botón con ID 'search-icon'
+    // BOTÓN DE BÚSQUEDA (ícono)
     document.addEventListener('click', (event) => {
-        const searchIcon = event.target.closest('#search-icon'); // Busca el botón de búsqueda por su ID
+        const searchIcon = event.target.closest('#search-icon');
         if (searchIcon) {
             const searchForm = document.getElementById('search-form');
             if (searchForm) {
-                // Si el ícono de búsqueda es clickeado, dispara el submit del formulario.
                 searchForm.dispatchEvent(new Event('submit', { bubbles: true }));
             } else {
-                console.warn("products.js: Formulario de búsqueda '#search-form' no encontrado al hacer clic en el ícono.");
+                console.warn("products.js: No se encontró el formulario de búsqueda.");
             }
         }
     });
 
-    // Función para manejar la lógica de búsqueda de productos
+    // BÚSQUEDA POR TEXTO
     function handleProductSearch(searchTerm) {
-        console.log(`products.js: Buscando productos con término: "${searchTerm}" en index.html`);
-        // Aquí puedes reutilizar la lógica que ya tienes para la búsqueda
-        // Por ejemplo, la parte que estaba dentro del `form.addEventListener("submit", ...)`
-        // y que llama a `/api/products/search/${encodeURIComponent(query)}`
+        console.log(`Buscando productos con: "${searchTerm}"`);
         if (!searchTerm) {
-            loadAllProducts(); // Carga todos si el término está vacío
+            loadAllProducts();
             return;
         }
 
-        try {
-            fetch(`/api/products/search/${encodeURIComponent(searchTerm)}`)
-                .then(res => res.json())
-                .then(products => renderProducts(products))
-                .catch(err => {
-                    console.error("Error al buscar productos:", err);
-                    container.innerHTML = "<p>Error al buscar productos.</p>";
-                });
-        } catch (err) {
-            console.error("Error al iniciar búsqueda de productos:", err);
-            container.innerHTML = "<p>Error al buscar productos.</p>";
-        }
+        fetch(`/api/products/search/${encodeURIComponent(searchTerm)}`)
+            .then(res => res.json())
+            .then(products => renderProducts(products))
+            .catch(err => {
+                console.error("Error al buscar productos:", err);
+                container.innerHTML = "<p>Error al buscar productos.</p>";
+            });
     }
 
+    // FILTRO POR CATEGORÍA (CLIC EN CATEGORÍA)
+    function filterByCategory(category) {
+        document.querySelectorAll('.product-card-slider').forEach(card => {
+        card.addEventListener('click', (e) => {
+        document.querySelectorAll('.product-card-slider').forEach(c => c.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+            });
+        });
+        
+        fetch(`/api/products/category/${encodeURIComponent(category)}`)
+            .then(res => res.json())
+            .then(products => renderProducts(products))
+            .catch(err => {
+                console.error("Error al filtrar productos:", err);
+                container.innerHTML = "<p>Error al filtrar productos.</p>";
+            });
+    }
 
-    // Cargar todos los productos inicialmente al cargar la página
+    // 👉 Hacemos visible esta función al HTML
+    window.filterByCategory = filterByCategory;
+
+    // Carga inicial
     loadAllProducts();
 });
 
 
-// Asumiendo que createMenuIcon está definido en products.js o en otro script cargado antes
-// Si no, deberías añadirlo aquí o en un archivo compartido si lo usas en otros sitios
+// MENÚ FLOTANTE (FAV/CART)
 const createMenuIcon = (prod) => {
     const menu = document.createElement("div");
     menu.className = "menu-icon";
@@ -133,38 +135,13 @@ const createMenuIcon = (prod) => {
     const cartIcon = menu.querySelector(".icon-cart span");
     const favIcon = menu.querySelector(".icon-favorite span");
     
-    cartIcon.addEventListener("click", (e) => {
+    cartIcon.addEventListener("click", async (e) => {
         e.stopPropagation(); 
         e.preventDefault(); 
         const isDefault = cartIcon.getAttribute("data-state") === "default"; 
         cartIcon.textContent = isDefault ? "shopping_cart_off" : "shopping_cart";
         cartIcon.setAttribute("data-state", isDefault ? "off" : "default");
-    });
 
-    favIcon.addEventListener("click", (e) => {
-        e.stopPropagation(); 
-        e.preventDefault(); 
-        const isDefault = favIcon.getAttribute("data-state") === "default";
-        favIcon.textContent = isDefault ? "stars" : "star";
-        favIcon.setAttribute("data-state", isDefault ? "on" : "default");
-    });
-
-    favIcon.addEventListener("click", async () => { 
-        try {
-            console.log("Agregando favorito con ID:", prod._id);
-            await fetch("/api/favorites/add", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify({ productId: prod._id }) 
-            });
-            console.log("Producto agregado a favoritos");
-        } catch (err) {
-            console.error("Error al agregar a favoritos:", err);
-        }
-    });
-
-    cartIcon.addEventListener("click", async () => { 
         try {
             console.log("Agregando al carrito con ID:", prod._id);
             await fetch("/api/cart/add", {
@@ -179,6 +156,26 @@ const createMenuIcon = (prod) => {
         }
     });
 
+    favIcon.addEventListener("click", async (e) => {
+        e.stopPropagation(); 
+        e.preventDefault(); 
+        const isDefault = favIcon.getAttribute("data-state") === "default";
+        favIcon.textContent = isDefault ? "stars" : "star";
+        favIcon.setAttribute("data-state", isDefault ? "on" : "default");
+
+        try {
+            console.log("Agregando favorito con ID:", prod._id);
+            await fetch("/api/favorites/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ productId: prod._id }) 
+            });
+            console.log("Producto agregado a favoritos");
+        } catch (err) {
+            console.error("Error al agregar a favoritos:", err);
+        }
+    });
 
     return menu;
 };

@@ -30,22 +30,25 @@
         </a>
       </div>
 
-      <div id="user-info-container">
-        <div id="user-info" class="user-info"></div>
+      <div id="user-info-container" class="user-info-container">
+        <h3 id="user-info" class="user-info"></h3></h3>
       </div>
 
-      <div class="container-search-filter">
-        <div class="container-search">
-          <form class="text_search" id="search-form">
-            <input type="text" class="bar_search" id="search-input" placeholder="Busca tu producto" />
-            <button class="icon-search" id="search-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/>
-              </svg>
-            </button>
-          </form>
-        </div>
+<!-- Reemplaza el div container-search-filter y su contenido con este código -->
+<div class="container-search-filter">
+  <div class="container-search">
+    <form class="text_search" id="search-form">
+      <div class="search-wrapper">
+        <input type="text" class="bar_search" id="search-input" placeholder="Busca tu pan favorito..." />
+        <button class="icon-search" id="search-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="#e67e22" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/>
+          </svg>
+        </button>
       </div>
+    </form>
+  </div>
+</div>
 
       <div id="admin-panel-link">
         <a href="/pages/admin/dashboard.html" id="admin-float-btn">⚙️ Admin</a>
@@ -55,7 +58,7 @@
         <ul class="container_shopping_cart-favorite-profile_icon">
           <li>
             <a id="facturas-btn" class="btn-icon" href="/pages/user/orders.html" style="display: none;">
-              <i class="material-symbols-outlined">corporate_fare</i>
+              <i class="fa-solid fa-file-invoice"></i>
             </a>
           </li>
           <li>
@@ -103,23 +106,24 @@
       <h4 class="section-title">CATEGORIAS</h4>
       <div class="product-slider">
 
-        <div class="product-card-slider">
+        <div class="product-card-slider" onclick="filterByCategory('VIDEOJUEGOS')">
           <img src="https://www.muyinteresante.com/wp-content/uploads/sites/5/2024/04/28/662e7d91efe4b.png" alt="Producto 1">
           <h5>Videojuegos</h5>
+          <button>aa</button>
         </div>
 
-        <div class="product-card-slider">
+        <div class="product-card-slider" onclick="filterByCategory('Parejas')">
           <h5>San Valentin</h5>
         </div>
 
-        <div class="product-card-slider">
+        <div class="product-card-slider" onclick="filterByCategory('Caricaturas')">
           <img src="https://blob.diariodelyaqui.mx/images/2025/03/19/3-caricaturas-de-cartoon-network-que-tal-vez-no-recordabas-pero-que-marcaron-infancias-c408303c-focus-0-0-732-549.jpg" alt="Producto 3">
           <h5>Caricaturas</h5>
         </div>
 
-        <div class="product-card-slider">
-          <img src="https://i.imgur.com/OeRbcw7.jpeg" alt="Producto 4">
-          <h5>Pan relleno</h5>
+        <div class="product-card-slider" onclick="filterByCategory('ANIME')">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuK4iqh0IRM1XBFqd0TLxe1YZIysEySVGqAw&s" alt="Producto 4">
+          <h5>ANIME</h5>
         </div>
 
         <div class="product-card-slider">

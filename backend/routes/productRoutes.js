@@ -17,7 +17,7 @@ router.post('/', async (req, res) => { // Agregar un nuevo producto
   }
 });
 
-router.get('/search/:query', async (req, res) => {
+router.get('/search/:query', async (req, res) => { //RUTA PARA LAS BUSQUEDAS
   try {
     const regex = new RegExp(req.params.query, 'i');
     const products = await Product.find({ name: { $regex: regex } });
@@ -27,6 +27,18 @@ router.get('/search/:query', async (req, res) => {
     res.status(500).json({ error: "Error al buscar productos" });
   }
 });
+
+router.get('/category/:type', async (req, res) => { //RUTA PARA LAS BUSQUEDAS POR CATEGORÍA
+  try {
+    const type = req.params.type;
+    const products = await Product.find({ type: type }); // busca coincidencia exacta
+    res.json(products);
+  } catch (err) {
+    console.error("Error al buscar por categoría:", err);
+    res.status(500).json({ error: "Error al buscar por categoría" });
+  }
+});
+
 
 
 module.exports = router;

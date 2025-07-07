@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: #e8f5fa;
+}
+
+h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.banner {
+  background-image: url('/resources/panaderia.png');
+  background-size: cover;
+  background-position: center;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-buttons {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  top: 10px;
+}
+
+.btn {
+  position: relative;
+  padding: 10px 20px;
+  background: #e5eaf3;
+  border-radius: 30px;
+  color: #000000;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+}
+
+.categories, .products {
+  padding: 20px;
+}
+
+.slider {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
