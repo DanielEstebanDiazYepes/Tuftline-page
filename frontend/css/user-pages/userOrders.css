@@ -102,20 +102,30 @@ body {
 /* Colores por estado */
 .status-badge.pending {
     background-color: #f0ad4e; /* amarillo */
+    border-radius: 12px;
+    padding: 0 10px; 
 }
 
 .status-badge.processing {
     background-color: #5bc0de; /* azul claro */
+    border-radius: 12px;
+    padding: 0 10px; 
 }
 
 .status-badge.completed {
     background-color: #5cb85c; /* verde */
+    border-radius: 12px;
+    padding: 0 10px; 
 }
 
 .status-badge.cancelled {
     background-color: #d9534f; /* rojo */
+    border-radius: 12px;
+    padding: 0 10px; 
 }
 
 .status-badge.unknown {
     background-color: #6c757d; /* gris */
+    border-radius: 12px;
+    padding: 0 10px; 
 }

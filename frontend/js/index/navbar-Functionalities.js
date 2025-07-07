@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const data = await res.json();
         if (data.success) {
-          window.location.href = "/";
+          window.location.href = "/index.html";
         } else {
           alert("No se pudo cerrar sesión.");
         }

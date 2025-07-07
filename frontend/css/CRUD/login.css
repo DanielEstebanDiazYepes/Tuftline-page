@@ -69,3 +69,34 @@ body {
 .button_create_account:hover {
   background-color: #2968c8;
 }
+
+@media (max-width: 760px) {
+  body {
+    background-size: cover;
+    overflow: hidden;
+
+  }
+
+  .container_login {
+    padding: 20px;
+    width: 85%;
+  }
+
+  .text p:first-child {
+    font-size: 20px;
+  }
+
+  .text p:last-child {
+    font-size: 12px;
+  }
+
+  .form_register input {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .button_create_account {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+}
