@@ -28,7 +28,7 @@ app.use("/resources", express.static(path.join(__dirname, "frontend/resources"))
 app.use("/prod_icons", express.static(path.join(__dirname, "resources/prod_icons")));
 
 app.use(cors({
-  origin: "http://localhost:5000", // Middleware para permitir solicitudes desde otros dominios (Frontend)
+  origin: process.env.CLIENT_URL, // Middleware para permitir solicitudes desde otros dominios (Frontend)
   credentials: true
 })); 
 

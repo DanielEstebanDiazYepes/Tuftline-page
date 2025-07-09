@@ -18,6 +18,10 @@
   padding-bottom: 1rem;
 }
 
+.product-card-slider :hover {
+  cursor: pointer;
+}
+
 .product-card-slider {
   flex: 0 0 auto;
   width: 220px;
@@ -67,20 +71,6 @@
   margin: 0.5rem 0;
 }
 
-.btn-cart {
-  background-color: #ff6d00;
-  color: white;
-  border: none;
-  padding: 0.4rem 0.6rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-
-.btn-cart:hover {
-  background-color: #e65c00;
-}
-
 .product-card-slider.active {
   background: linear-gradient(
     90deg,
@@ -110,6 +100,21 @@
     background-position: 0% 0;
   }
 }
+
+.btn-cart {
+  background-color: #ff6d00;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-cart:hover {
+  background-color: #e65c00;
+}
+
 
 
 

@@ -47,6 +47,18 @@ const userSchema = new mongoose.Schema(
         ref: "Order",
       },
     ],
+    isVerified: {
+      type: Boolean,
+      default: false, // Indica si el usuario ha verificado su cuentaq
+    },
+    verificationToken: {
+      type: String,
+      default: null, // Token para la verificación de la cuenta
+    },
+    verificationTokenExpires: {
+      type: Date,
+      default: null, // Fecha de expiración del token de verificación
+    },
   },
   { timestamps: true }
 );

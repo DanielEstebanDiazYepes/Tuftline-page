@@ -3,11 +3,12 @@ const passport = require("passport");
 const User = require("../models/users");
 const bcrypt = require("bcryptjs");
 const ensureAuth = require("../middlewares/authMiddleware"); // Middleware para verificar autenticación
-const { registerUser, loginUser } = require("../controllers/authController");
+const { registerUser, loginUser, verifyEmail } = require("../controllers/authController");
 const router = express.Router();
 
 router.post("/register", registerUser); // Ruta para registro
 router.post("/login", loginUser); // Ruta para login +
+router.get("/verify-email", verifyEmail);
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 router.get("/google/callback",passport.authenticate("google", { failureRedirect: "/login.html" }),
 
@@ -108,6 +109,5 @@ router.delete("/delete", ensureAuth, async (req, res) => {
     res.status(500).json({ success: false, message: "Error al eliminar la cuenta" });
   }
 });
-
 
 module.exports = router;
