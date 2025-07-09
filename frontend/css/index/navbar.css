@@ -31,10 +31,10 @@ body{
 
 .container_logo{
     position: relative;
-    top: 9px;
+    top: 14px;
     display: inline-block;
     height: 40px;
-    left: 60px;
+    left: 30px;
     width: 200px;
 }
 
@@ -45,15 +45,16 @@ body{
 }
 
 .container-search-filter {
-    background: transparent;
     width: 500px;
     height: 60px;
+    right: 490px;
+    top: 10px;
+    background: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    right: 400px;
-    top: 10px;
+
 }
 
 .search-wrapper {
@@ -143,8 +144,8 @@ body{
 
 .user-info-container{
     position: relative;
-    top: 10px;
-    left: 500px;
+    top: 17px;
+    left: 400px;
     width: 350px;
     height: 50px;
     display: flex;
@@ -185,9 +186,9 @@ body{
     position: relative;
     width: 200px;
     height: 60px;
-    top: 6px;
+    top: 0px;
     display: flex;
-    right: 100px;
+    right: 170px;
 }
 
 .container_shopping_cart-favorite-profile_icon{

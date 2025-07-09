@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { sendPurchaseReceipt } = require("../utils/mailer");
+const { sendEmail } = require("../utils/mailer");
 const Order = require("../models/Order");
 
 router.post("/confirm", async (req, res) => {
@@ -57,7 +57,7 @@ router.post("/confirm", async (req, res) => {
             <p>¡Te notificaremos cuando tu pedido esté en camino!</p>
         `;
 
-        await sendPurchaseReceipt(user.email, "Factura de tu compra en Tienda Online", html);
+        await sendEmail(user.email, "Factura de tu compra en Tienda Online", html);
         res.json({ success: true, orderId: newOrder._id });
 
     } catch (err) {
@@ -136,7 +136,7 @@ router.post("/cart", async (req, res) => {
             <p>Nos comunicaremos contigo cuando tu pedido esté en camino.</p>
         `;
 
-        await sendPurchaseReceipt(user.email, "Factura de tu compra en Tienda Online", html);
+        await sendEmail(user.email, "Factura de tu compra en Tienda Online", html);
         res.json({ success: true, orderId: newOrder._id });
 
     } catch (err) {

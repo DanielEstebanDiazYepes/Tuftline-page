@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-async function sendPurchaseReceipt(toEmail, subject, htmlContent) {
+async function sendEmail(toEmail, subject, htmlContent) {
   const mailOptions = {
     from: '"Tienda Online" faesdream@gmail.com',
     to: toEmail,
@@ -19,4 +19,4 @@ async function sendPurchaseReceipt(toEmail, subject, htmlContent) {
   await transporter.sendMail(mailOptions);
 }
 
-module.exports = { sendPurchaseReceipt };
+module.exports = { sendEmail };

@@ -385,45 +385,47 @@ document.querySelector('.update-status-btn').addEventListener('click', async (e)
     };
 
     // Enviar formulario de producto
-    productForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
+productForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-        const productId = document.getElementById("product-id").value;
-        const isEdit = !!productId;
+    const productId = document.getElementById("product-id").value;
+    const isEdit = !!productId;
 
-        const productData = {
-            name: document.getElementById("product-name").value,
-            type: document.getElementById("product-type").value || "",
-            price: parseFloat(document.getElementById("product-price").value),
-            description: document.getElementById("product-description").value,
-            imageUrl: document.getElementById("product-image").value
-        };
+    const formData = new FormData();
+    formData.append("name", document.getElementById("product-name").value);
+    formData.append("type", document.getElementById("product-type").value || "");
+    formData.append("price", parseFloat(document.getElementById("product-price").value));
+    formData.append("description", document.getElementById("product-description").value);
 
-        try {
-            const url = isEdit ? `/api/admin/products/${productId}` : "/api/products";
-            const method = isEdit ? "PUT" : "POST";
+    // Solo agregar imagen si se seleccionó un archivo nuevo
+    const imageFile = document.getElementById("product-image").files[0];
+    if (imageFile) {
+        formData.append("image", imageFile);
+    }
 
-            const res = await fetch(url, {
-                method,
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials: "include",
-                body: JSON.stringify(productData)
-            });
+    try {
+        const url = isEdit ? `/api/admin/products/${productId}` : "/api/admin/products";
+        const method = isEdit ? "PUT" : "POST";
 
-            if (res.ok) {
-                productModal.style.display = "none";
-                loadProducts();
-                showAlert(`Producto ${isEdit ? 'actualizado' : 'creado'} correctamente`, "success");
-            } else {
-                throw new Error(`Error al ${isEdit ? 'actualizar' : 'crear'} producto`);
-            }
-        } catch (err) {
-            console.error("Error al guardar producto:", err);
-            showAlert(err.message, "error");
+        const res = await fetch(url, {
+            method,
+            credentials: "include",
+            body: formData
+        });
+
+        if (res.ok) {
+            productModal.style.display = "none";
+            loadProducts();
+            showAlert(`Producto ${isEdit ? 'actualizado' : 'creado'} correctamente`, "success");
+        } else {
+            throw new Error(`Error al ${isEdit ? 'actualizar' : 'crear'} producto`);
         }
-    });
+    } catch (err) {
+        console.error("Error al guardar producto:", err);
+        showAlert(err.message, "error");
+    }
+});
+
 
     // Cambiar entre pestañas
     tabLinks.forEach(link => {

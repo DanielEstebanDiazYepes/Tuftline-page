@@ -1,56 +1,71 @@
-// routes/adminProducts.js
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product");
 const ensureAuth = require("../middlewares/authMiddleware");
 const roleMiddleware = require("../middlewares/roleMiddleware");
+const upload = require("../middlewares/uploadmiddlewares");
 
-// Solo admins pueden acceder
+// Seguridad: solo admin autenticado
 router.use(ensureAuth, roleMiddleware(["admin"]));
 
-// Obtener todos los productos (para admin)
+// GET: Ver todos los productos
 router.get("/", async (req, res) => {
-    try {
-        const products = await Product.find();
-        res.json(products);
-    } catch (err) {
-        res.status(500).json({ error: "Error al obtener productos" });
-    }
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener productos" });
+  }
 });
 
-// Crear producto
-router.post("/", async (req, res) => {
-    try {
-        const newProduct = new Product(req.body);
-        await newProduct.save();
-        res.status(201).json(newProduct);
-    } catch (err) {
-        res.status(400).json({ error: "Error al crear producto" });
+// POST: Crear producto con imagen local
+router.post("/", upload.single("image"), async (req, res) => {
+  try {
+    const { name, type, description, price } = req.body;
+
+    if (!req.file) {
+      return res.status(400).json({ error: "Debe subir una imagen" });
     }
+
+    const imageUrl = `/uploads/${req.file.filename}`; // Ruta accesible desde el navegador
+
+    const newProduct = new Product({
+      name,
+      type,
+      description,
+      price,
+      imageUrl
+    });
+
+    await newProduct.save();
+    res.status(201).json(newProduct);
+  } catch (err) {
+    res.status(400).json({ error: "Error al crear producto" });
+  }
 });
 
-// Actualizar producto
+// PUT: Actualizar producto
 router.put("/:id", async (req, res) => {
-    try {
-        const updatedProduct = await Product.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-        res.json(updatedProduct);
-    } catch (err) {
-        res.status(400).json({ error: "Error al actualizar producto" });
-    }
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updatedProduct);
+  } catch (err) {
+    res.status(400).json({ error: "Error al actualizar producto" });
+  }
 });
 
-// Eliminar producto
+// DELETE: Eliminar producto
 router.delete("/:id", async (req, res) => {
-    try {
-        await Product.findByIdAndDelete(req.params.id);
-        res.json({ success: true });
-    } catch (err) {
-        res.status(400).json({ error: "Error al eliminar producto" });
-    }
+  try {
+    await Product.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(400).json({ error: "Error al eliminar producto" });
+  }
 });
 
 module.exports = router;
