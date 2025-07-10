@@ -28,7 +28,7 @@ async function fetchProductDetails() {
 });
 
     document.getElementById("button-cancel-purchase").addEventListener("click", () => {
-    window.location.href = "/";
+    window.location.href = "/index.html"; 
     });
 }
 

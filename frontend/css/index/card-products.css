@@ -1,3 +1,100 @@
+.product-section{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centra los elementos (info y grid) horizontalmente dentro del contenedor */
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.container-personalized-product{
+    align-items: center;
+    justify-content: center;  /*Center the items de manera horizonal*/
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.personalized-product-info{
+    background-color: #80dbf1;
+    width: 350px;
+    height: 300px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.personalized-product-info h2 {
+  font-size: 1.7em;
+  box-shadow: inset 2px 2px 10px rgba(0,0,0,0.1);
+  border-radius: 7px;
+}
+
+.personalized-product-info span.material-symbols-outlined {
+  font-size: 100px;
+  position: relative;
+  top: 10px;
+}
+
+.personalized-product-info p {
+  position: relative;
+  top: 20px;
+  font-size: 1.2em;
+  color: #333;
+  font-weight: 700;
+  box-shadow: inset 2px 2px 10px rgba(0,0,0,0.1);
+  border-radius: 7px;
+}
+
+.rainbow {
+    text-align: center;
+    text-decoration: underline;
+    font-size: 32px;
+    font-family: monospace;
+    letter-spacing: 5px;
+}
+.personalized-product-info span {
+    background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 17s ease-in-out infinite;
+    background-size: 400% 100%;
+}
+
+.personalized-product-info h2 {
+    background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 17s ease-in-out infinite;
+    background-size: 400% 100%;
+}
+
+.personalized-product-info p {
+    background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 17s ease-in-out infinite;
+    background-size: 400% 100%;
+}
+
+@keyframes rainbow_animation {
+    0%,100% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 100% 0;
+    }
+}
+
+
 .product-grid {
     align-items: center;
     justify-content: center;  /*Center the items de manera horizonal*/
@@ -32,6 +129,7 @@
   } 
 
   .product-card img { /*AQUI SE DEFINE EL ANCHO Y ALTO QUE VAN A TENER LAS IMAGENES*/
+    border-radius: 7px;
     max-width: 100%;
     height: 75%;
     object-fit: contain;

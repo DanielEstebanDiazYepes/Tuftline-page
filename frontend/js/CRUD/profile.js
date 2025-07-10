@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", async () => { //CODIGO PARA MOSTRAR LA INFORMACION DEL USUARIO EN EL FORMULARIO
     try {
       const res = await fetch("/api/auth/me", { credentials: "include" });
@@ -10,7 +11,6 @@ document.addEventListener("DOMContentLoaded", async () => { //CODIGO PARA MOSTRA
         document.getElementById("phone").value = user.phone || "xxx";
         document.getElementById("email").value = user.email || "";
       } else {
-        alert("INICIA SESION PARA PODER VER TU PERFIL");
         window.location.href = "/pages/auth/login.html";
       }
     } catch (error) {
@@ -39,40 +39,69 @@ document.getElementById("update-information").addEventListener("click", async (e
   
       const data = await res.json();
       if (data.success) {
-        alert("✅ Información actualizada correctamente");
+        Swal.fire({
+          icon: "success",
+          text:"Información actualizada correctamente",
+          confirmButtonText: "OK"
+        });
+        return;
       } else {
-        alert("❌ Error al actualizar la información");
+        Swal.fire({
+          icon: "error",
+          text: data.message || "Error al actualizar la información",
+          confirmButtonText: "OK"
+        });
+        return;
       }
     } catch (err) {
-      console.error("Error al actualizar:", err);
-      alert("Hubo un error");
-    }
-  });
-
-  document.getElementById("delete-account").addEventListener("click", async (e) => {// CODIGO PARA ELIMINAR LA CUENTA DEL USUARIO
-    e.preventDefault();
-    const confirmDelete = confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.");
-  
-    if (!confirmDelete) return;
-  
-    try {
-      const res = await fetch("/api/auth/delete", {
-        method: "DELETE",
-        credentials: "include"
+      Swal.fire({
+        icon: "error",
+        text:"Hubo un error",
+        confirmButtonText: "OK"
       });
-      
-      const data = await res.json();
-
-      if (data.success) {
-        alert("Tu cuenta ha sido eliminada.");
-        window.location.href = "/index.html";
-      } else {
-        alert("No se pudo eliminar la cuenta.");
-      }
-    } catch (error) {
-      console.error("Error al eliminar cuenta:", error);
-      alert("Hubo un error al eliminar la cuenta");
+      return;
     }
   });
-  
-  
+
+  document.getElementById("delete-account").addEventListener("click", async (e) => {
+    e.preventDefault();
+    
+    const confirmDelete = await Swal.fire({
+        icon: "warning",
+        title: "Eliminación de cuenta",
+        text: "¿ESTÁS SEGURO DE QUE QUIERES ELIMINAR LA CUENTA? PERDERÁS EL ACCESO A TODAS LAS FACTURAS ASOCIADAS A ELLA",
+        confirmButtonText: "Eliminar",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar"
+    });
+    
+    if (confirmDelete.isConfirmed) {
+        try {
+            const res = await fetch("/api/auth/delete", {
+                method: "DELETE",
+                credentials: "include"
+            });
+            
+            const data = await res.json();
+
+            if (data.success) {
+                await Swal.fire({
+                    icon: "success",
+                    title: "Cuenta eliminada",
+                    text: "Tu cuenta ha sido eliminada correctamente.",
+                    confirmButtonText: "Aceptar"
+                });
+                window.location.href = "/index.html";
+            } else {
+                throw new Error(data.message || "No se pudo eliminar la cuenta");
+            }
+        } catch (error) {
+            await Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: error.message || "Hubo un error al eliminar la cuenta",
+                confirmButtonText: "Aceptar"
+            });
+        }
+    }
+});
