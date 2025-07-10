@@ -60,8 +60,17 @@ async function loadPurchasePage() {
     });
 
     if (response.ok) {
-      alert("¡Compra realizada exitosamente! Se ha enviado una factura a tu correo.");
-      window.location.href = "/index.html";
+      Swal.fire({
+        icon: "success",
+        title: "Compra Exitosa",
+        text:"¡Compra realizada exitosamente! Se ha enviado la factura de compra a tu correo.",
+        confirmButtonText: "OK"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/index.html"; // Redirige a la página principal
+        }
+      });
+      return; 
     } else {
       alert("Ocurrió un error al confirmar tu compra.");
     }
@@ -77,7 +86,7 @@ async function loadPurchasePage() {
 
     // Cancelar
     document.getElementById("cancel-button").addEventListener("click", () => {
-      window.location.href = "/";
+      window.location.href = "/index.html";
     });
 
   } catch (err) {

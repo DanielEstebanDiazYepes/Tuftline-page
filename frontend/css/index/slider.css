@@ -83,7 +83,7 @@
     #ff0000
   );
   background-size: 400% 100%;
-  animation: rainbow-background 4s linear infinite;
+  animation: rainbow-background 15s linear infinite;
   color: white; /* cambia si quieres otro contraste */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* sombra sutil */
   border: none;
