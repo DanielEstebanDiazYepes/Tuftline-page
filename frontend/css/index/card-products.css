@@ -28,27 +28,44 @@
     overflow: hidden;
 }
 
+.section-divider-top{
+  position: relative;
+  width: 95%;
+  height: 1px;
+  background-color: #333;
+  border: none;
+  bottom: 20px;
+}
+
+.section-divider-bottom{
+  position: relative;
+  width: 95%;
+  height: 1px;
+  background-color: #333;
+  border: none;
+  top: 15px;
+}
+
 .personalized-product-info h2 {
+  position: relative;
   font-size: 1.7em;
-  box-shadow: inset 2px 2px 10px rgba(0,0,0,0.1);
-  border-radius: 7px;
+  bottom: 15px;
 }
 
 .personalized-product-info span.material-symbols-outlined {
   font-size: 100px;
   position: relative;
-  top: 10px;
 }
 
 .personalized-product-info p {
   position: relative;
-  top: 20px;
+  top: 5px;
   font-size: 1.2em;
   color: #333;
   font-weight: 700;
-  box-shadow: inset 2px 2px 10px rgba(0,0,0,0.1);
-  border-radius: 7px;
 }
+
+/* Parte de la animación de texto arcoíris */
 
 .rainbow {
     text-align: center;
@@ -93,6 +110,40 @@
         background-position: 100% 0;
     }
 }
+
+/*hasta aca */
+
+
+/* PARTE DE EFECTO DE ARCOIRIS BORDES DIV*/
+#personalized-product-info {
+  border: 3px solid transparent;
+  animation: shadowColorRotate 6s linear infinite;
+  box-shadow: 0 0 15px #6666ff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Animación de sombra multicolor */
+@keyframes shadowColorRotate {
+  0% {
+    box-shadow: 0 0 15px #6666ff;
+  }
+  25% {
+    box-shadow: 0 0 15px #0099ff;
+  }
+  50% {
+    box-shadow: 0 0 15px #00ff00;
+  }
+  75% {
+    box-shadow: 0 0 15px #ff3399;
+  }
+  100% {
+    box-shadow: 0 0 15px #6666ff;
+  }
+}
+
+
+/*AQUI TERMINA*/
 
 
 .product-grid {
