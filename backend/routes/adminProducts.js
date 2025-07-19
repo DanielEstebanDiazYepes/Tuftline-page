@@ -44,16 +44,30 @@ router.post("/", upload.single("image"), async (req, res) => {
   }
 });
 
-// PUT: Actualizar producto
-router.put("/:id", async (req, res) => {
+// PUT: Actualizar producto (con soporte para imagen)
+router.put("/:id", upload.single("image"), async (req, res) => {
   try {
+    const { name, type, description, price } = req.body;
+    const updateData = { name, type, description, price };
+
+    // Si se subió una nueva imagen, actualizar la URL
+    if (req.file) {
+      updateData.imageUrl = `/uploads/${req.file.filename}`;
+    }
+
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updateData,
       { new: true }
     );
+
+    if (!updatedProduct) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+
     res.json(updatedProduct);
   } catch (err) {
+    console.error("Error al actualizar producto:", err);
     res.status(400).json({ error: "Error al actualizar producto" });
   }
 });
