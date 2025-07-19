@@ -8,6 +8,7 @@ const passport = require("passport");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const adminProductsRouter = require("./backend/routes/adminProducts");
+const customOrderRoutes = require('./backend/routes/personalizatedRoutes');
 const adminOrdersRouter = require("./backend/routes/adminOrders");
 const mobileRedirect = require("./backend/middlewares/mobileRedirectMiddleware");
 
@@ -72,6 +73,8 @@ connectDB();// Conectar a la base de datos para el log/reg de usuarios
 
 const protectedRoutes = require("./backend/routes/protectedRoutes");// Importar rutas protegidas
 app.use("/api/protected", protectedRoutes);
+
+app.use('/api/custom-order', customOrderRoutes);
 
 const purchaseRoutes = require("./backend/routes/purchaseRoutes");
 app.use("/api/purchase", purchaseRoutes);
