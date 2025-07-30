@@ -5,16 +5,13 @@ const OrderCustom = require('../models/personalizedOrder');
 const authMiddleware = require("../middlewares/authMiddleware")
 const upload = require('../middlewares/uploadMiddlewares'); // Configuración para subir imágenes
 
-// Middleware para verificar autenticación
 
-
-// Crear un nuevo pedido personalizado
 router.post('/create', authMiddleware, upload.single('referenceImage'), async (req, res) => {
     const user = req.user;
     const { 
         orderName, 
         width, 
-        height, 
+        height,
         details, 
         price,
         address,
@@ -87,35 +84,70 @@ router.post('/create', authMiddleware, upload.single('referenceImage'), async (r
     }
 });
 
-// Obtener todos los pedidos personalizados de un usuario
-router.get('/user-orders', authMiddleware, async (req, res) => {
+// OBTENER TODAS LAS ORDENES 
+router.get('/', async (req, res) => {
     try {
-        const orders = await OrderCustom.find({ user: req.user._id })
-            .sort({ createdAt: -1 });
-        
+        const orders = await OrderCustom.find()
+            .sort({ createdAt: -1 })
+            .populate('user', 'name email');
         res.json(orders);
     } catch (err) {
-        console.error("Error al obtener pedidos:", err);
-        res.status(500).json({ error: "Error al obtener pedidos" });
+        console.error(err);
+        res.status(500).json({ error: 'Error al obtener órdenes personalizadas' });
     }
 });
 
-// Obtener detalles de un pedido específico
-router.get('/:orderId', authMiddleware, async (req, res) => {
+// Obtener una orden personalizada específica
+router.get('/:id', async (req, res) => {
     try {
-        const order = await OrderCustom.findOne({
-            _id: req.params.orderId,
-            user: req.user._id
-        });
+        const order = await OrderCustom.findById(req.params.id)
+            .populate('user', 'name email');
         
         if (!order) {
-            return res.status(404).json({ error: "Pedido no encontrado" });
+            return res.status(404).json({ error: 'Orden no encontrada' });
         }
         
         res.json(order);
     } catch (err) {
-        console.error("Error al obtener pedido:", err);
-        res.status(500).json({ error: "Error al obtener pedido" });
+        console.error(err);
+        res.status(500).json({ error: 'Error al obtener la orden' });
+    }
+});
+
+// Actualizar estado de orden personalizada
+router.put('/:id', async (req, res) => {
+    try {
+        const { status } = req.body;
+        const order = await OrderCustom.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            { new: true }
+        );
+        
+        if (!order) {
+            return res.status(404).json({ error: 'Orden no encontrada' });
+        }
+        
+        res.json(order);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error al actualizar la orden' });
+    }
+});
+
+// Eliminar orden personalizada
+router.delete('/:id', async (req, res) => {
+    try {
+        const order = await OrderCustom.findByIdAndDelete(req.params.id);
+        
+        if (!order) {
+            return res.status(404).json({ error: 'Orden no encontrada' });
+        }
+        
+        res.json({ success: true });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error al eliminar la orden' });
     }
 });
 

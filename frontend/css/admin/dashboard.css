@@ -1,4 +1,6 @@
-/* Estilos generales */
+/* ==================== */
+/* ESTILOS GENERALES */
+/* ==================== */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -11,7 +13,9 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar */
+/* ==================== */
+/* SIDEBAR */
+/* ==================== */
 .sidebar {
     width: 180px;
     background: #2c3e50;
@@ -73,7 +77,9 @@ body {
     background: #c0392b;
 }
 
-/* Main Content */
+/* ==================== */
+/* CONTENIDO PRINCIPAL */
+/* ==================== */
 .main-content {
     flex: 1;
     padding: 20px;
@@ -87,19 +93,24 @@ body {
     display: block;
 }
 
-/* Tablas */
+/* ==================== */
+/* TABLAS */
+/* ==================== */
 .table-container {
+    width: 100%;
     overflow-x: auto;
-    margin-top: 20px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
 }
+
+
 
 th, td {
     padding: 12px 15px;
@@ -116,7 +127,9 @@ tr:hover {
     background: #f5f5f5;
 }
 
-/* Botones */
+/* ==================== */
+/* BOTONES */
+/* ==================== */
 .btn-primary {
     background: #3498db;
     color: white;
@@ -145,7 +158,9 @@ tr:hover {
     background: #c0392b;
 }
 
-/* Modal */
+/* ==================== */
+/* MODALES */
+/* ==================== */
 .modal {
     display: none;
     position: fixed;
@@ -176,6 +191,9 @@ tr:hover {
     cursor: pointer;
 }
 
+/* ==================== */
+/* FORMULARIOS */
+/* ==================== */
 .form-group {
     margin-bottom: 15px;
 }
@@ -186,7 +204,8 @@ tr:hover {
     font-weight: 500;
 }
 
-.form-group input, .form-group textarea {
+.form-group input, 
+.form-group textarea {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
@@ -198,17 +217,9 @@ tr:hover {
     resize: vertical;
 }
 
-
-/* Estilos para las órdenes */
-.order-row {
-    transition: background-color 0.3s;
-}
-
-.order-row:hover {
-    background-color: #f5f5f5;
-}
-
-/* Modal de detalles de orden */
+/* ==================== */
+/* DETALLES DE ORDEN */
+/* ==================== */
 .order-details-modal {
     position: fixed;
     top: 0;
@@ -252,7 +263,9 @@ tr:hover {
     margin-top: 10px;
 }
 
-/* Badges de estado */
+/* ==================== */
+/* BADGES DE ESTADO */
+/* ==================== */
 .status-badge {
     display: inline-block;
     padding: 5px 10px;
@@ -264,23 +277,43 @@ tr:hover {
     min-width: 100px;
 }
 
-/* Colores por estado */
+.status-badge.custom {
+    background-color: #9c27b0;
+}
+
+.status-badge.regular {
+    background-color: #2196f3;
+}
+
 .status-badge.pending {
-    background-color: #f0ad4e; /* amarillo */
+    background-color: #f0ad4e;
 }
 
 .status-badge.processing {
-    background-color: #5bc0de; /* azul claro */
+    background-color: #5bc0de;
 }
 
 .status-badge.completed {
-    background-color: #5cb85c; /* verde */
+    background-color: #5cb85c;
 }
 
 .status-badge.cancelled {
-    background-color: #d9534f; /* rojo */
+    background-color: #d9534f;
 }
 
 .status-badge.unknown {
-    background-color: #6c757d; /* gris */
+    background-color: #6c757d;
+}
+
+.reference-image {
+    margin: 15px 0;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 4px;
+}
+
+.reference-image img {
+    display: block;
+    margin-top: 10px;
+    border: 1px solid #ddd;
 }

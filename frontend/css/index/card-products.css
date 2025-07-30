@@ -45,6 +45,7 @@
   font-size: 1.7em;
   margin-top: 5px;
   margin: 0px 10px;
+  left: 17px;
 }
 
 .personalized-product-info span.material-symbols-outlined {
@@ -58,6 +59,7 @@
   color: #333;
   font-weight: 700;
   width: 40%;
+  right: 20px;
 }
 
 /* Efecto hover consistente */
