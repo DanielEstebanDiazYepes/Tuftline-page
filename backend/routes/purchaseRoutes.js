@@ -13,7 +13,6 @@ router.post("/confirm", async (req, res) => {
     const total = product.price * quantity;
 
     try {
-        // Crear la orden en la base de datos
         const newOrder = new Order({
             user: user._id,
             userName: user.name,

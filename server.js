@@ -57,6 +57,7 @@ app.use("/api/auth", authRoutes);
 
 app.use("/api/admin/products", adminProductsRouter);
 app.use("/api/admin/orders", adminOrdersRouter);
+app.use('/api/custom-order', customOrderRoutes);
 
 app.use("/api/user", require("./backend/routes/userOrders")); // RUTA PARA QUE EL USUARIO PUEDA VER SUS FACTURAS-PEDIDOS
 
@@ -74,7 +75,6 @@ connectDB();// Conectar a la base de datos para el log/reg de usuarios
 const protectedRoutes = require("./backend/routes/protectedRoutes");// Importar rutas protegidas
 app.use("/api/protected", protectedRoutes);
 
-app.use('/api/custom-order', customOrderRoutes);
 
 const purchaseRoutes = require("./backend/routes/purchaseRoutes");
 app.use("/api/purchase", purchaseRoutes);

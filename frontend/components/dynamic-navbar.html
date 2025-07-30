@@ -1,39 +1,62 @@
-<div class="container-items">
-    <div class="container_logo">
+    <nav class="container-items">
+      <div class="container_logo">
         <a href="/index.html">
-            <img src="/resources/LA OBRA DE DIOS LOGO.png"class="img_logo"alt="logo"/>
+          <img src="/resources/page-icon/page-icon-oficial.png" class="img_logo" alt="logo"/>
         </a>
-    </div>
-    <div id ="user-info-container">
-    <div id ="user-info" class="user-info"></div></div>
-    <div class="container-search-filter">
-        <div class="container-search">
-            <form class="text_search" id="search-form">
-                <input type="text" class="bar_search" id="search-input" placeholder="Busca tu producto" />
-                <button class="icon-search" id="search-icon"> 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentColor"d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/>
-                    </svg>
-                </button>
-            </form>
-        </div>
-    </div>
-    
-    <div class="container-list">
-        <ul class="container_shopping_cart-favorite-profile_icon">
-            <li><a href="/pages/user/cart.html" class="shopping_cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
-            <li><a href="/pages/user/favorites.html" class="favorite"><i class="fa-solid fa-star"></i></a></li>
-            <li>
-                <div class="user-select">
-                    <div class="select-trigger">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div class="select-options">
-                        <div class="option" id="profile-btn">Mi perfil</div>
-                        <div class="option" id="logout-btn">Cerrar sesión</div>
-                    </div>
-                </div>         
-            </li>
-        </ul>
-    </div>
+      </div>
+
+      <div id="user-info-container" class="user-info-container">
+        <h3 id="user-info" class="user-info"></h3></h3>
+      </div>
+
+<div class="container-search-filter">
+  <div class="container-search">
+    <form class="text_search" id="search-form">
+      <div class="search-wrapper">
+        <input type="text" class="bar_search" id="search-input" placeholder="Busca un producto" />
+        <button class="icon-search" id="search-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="#e67e22" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
+
+      <div id="admin-panel-link">
+        <a href="/pages/admin/dashboard.html" id="admin-float-btn">⚙️ Admin</a>
+      </div>
+
+      <div class="container-list">
+        <ul class="container_shopping_cart-favorite-profile_icon">
+          <li>
+            <a id="facturas-btn" class="btn-icon" href="/pages/user/orders.html">
+              <i class="fa-solid fa-file-invoice"></i>
+            </a>
+          </li>
+          <li>
+            <a href="/pages/user/cart.html" class="shopping_cart">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+          </li>
+          <li>
+            <a href="/pages/user/favorites.html" class="favorite">
+              <i class="fa-solid fa-star"></i>
+            </a>
+          </li>
+          <li>
+            <div class="user-select">
+              <div class="select-trigger">
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="select-options">
+                <div class="option" id="profile-btn">Mi perfil</div>
+                <div class="option" id="logout-btn">Cerrar sesión</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+    </nav>

@@ -38,18 +38,30 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     };
 
-    const loadOrders = async () => {
-        try {
-            const res = await fetch("/api/admin/orders"); // Cambiado a /api/admin/orders
-            if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
-            
-            const orders = await res.json();
-            renderOrders(orders.data || orders); // Compatible con ambas estructuras de respuesta
-        } catch (err) {
-            console.error("Error al cargar órdenes:", err);
-            showAlert(`Error al cargar órdenes: ${err.message}`, "error");
-        }
-    };
+const loadOrders = async () => {
+    try {
+        // AQUI CARGAMOS LAS ORDENES NORMALES DE LA BASE DE DATOS
+        const ordersRes = await fetch("/api/admin/orders");
+        if (!ordersRes.ok) throw new Error(`Error ${ordersRes.status}: ${ordersRes.statusText}`);
+        const orders = await ordersRes.json();
+        
+        // AQUI CARGAMOS LAS ORDENES PERSONALIZADAS DE LA BASE DE DATOS
+        const customOrdersRes = await fetch("/api/custom-order");  
+        if (!customOrdersRes.ok) throw new Error(`Error ${customOrdersRes.status}: ${customOrdersRes.statusText}`);
+        const customOrders = await customOrdersRes.json();
+        
+        // AQUI COMBINAMOS LAS ORDENES NORMALES Y PERSONALIZADAS Y LAS ORDENAMOS POR FECHA
+        const allOrders = [
+            ...(orders.data || orders),
+            ...(customOrders.data || customOrders)
+        ].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        
+        renderOrders(allOrders);
+    } catch (err) {
+        console.error("Error al cargar órdenes:", err);
+        showAlert(`Error al cargar órdenes: ${err.message}`, "error");
+    }
+};
 
     // Renderizar productos en la tabla
     const renderProducts = (products) => {
@@ -87,65 +99,99 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     // Renderizar órdenes en la tabla
-    const renderOrders = (orders) => {
-        const tbody = document.getElementById("orders-list");
-        tbody.innerHTML = "";
+const renderOrders = (orders) => {
+    const tbody = document.getElementById("orders-list");
+    tbody.innerHTML = "";
 
-        if (!orders || orders.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="6" class="no-orders">No hay órdenes registradas</td>
-                </tr>
-            `;
-            return;
-        }
+    if (!orders || orders.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="no-orders">No hay órdenes registradas</td>
+            </tr>
+        `;
+        return;
+    }
 
-        orders.forEach((order) => {
-            const tr = document.createElement("tr");
-            tr.classList.add("order-row");
-            tr.setAttribute("data-id", order._id);
-            
-            tr.innerHTML = `
-                <td>${order._id}</td>
-                <td>${order.userName || order.user?.name || 'Cliente no disponible'}</td>
-                <td>${order.products?.length || 0} productos</td>
-                <td>$${(order.total || 0).toFixed(2)}</td>
-                <td>${new Date(order.createdAt).toLocaleDateString()}</td>
-                <td>
-                    <button class="btn-primary view-order" data-id="${order._id}">
-                        <i class="material-icons">visibility</i> Ver
-                    </button>
-                    ${getStatusBadge(order.status)}
-                </td>
-            `;
-            tbody.appendChild(tr);
+    orders.forEach((order) => {
+        const tr = document.createElement("tr");
+        tr.classList.add("order-row");
+        tr.setAttribute("data-id", order._id);
+        tr.setAttribute("data-type", order.price ? "custom" : "regular");
+        
+        // Determinar el tipo de orden
+        const isCustomOrder = order.orderName || order.dimensions;
+        const orderTypeBadge = isCustomOrder ? 
+            '<span class="status-badge custom">Personalizado</span>' : 
+            '<span class="status-badge regular">Tienda</span>';
+        
+        tr.innerHTML = `
+            <td>${order._id}</td>
+            <td>${order.userName || order.user?.name || 'Cliente no disponible'}</td>
+            <td>${isCustomOrder ? order.orderName : (order.products?.length || 0) + ' productos'}</td>
+            <td>$${(order.total || order.price || 0).toFixed(2)}</td>
+            <td>${new Date(order.createdAt).toLocaleDateString()}</td>
+            <td>
+                ${orderTypeBadge}
+                <button class="btn-primary view-order" data-id="${order._id}" data-type="${isCustomOrder ? 'custom' : 'regular'}">
+                    <i class="material-icons">visibility</i> Ver
+                </button>
+                ${getStatusBadge(order.status)}
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    // Agregar eventos para ver detalles de la orden
+    document.querySelectorAll(".view-order").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const orderId = e.target.closest("button").dataset.id;
+            const orderType = e.target.closest("button").dataset.type;
+            viewOrderDetails(orderId, orderType);
         });
-
-        // Agregar eventos para ver detalles de la orden
-        document.querySelectorAll(".view-order").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                viewOrderDetails(e.target.closest("button").dataset.id);
-            });
-        });
-    };
+    });
+};
 
     // Función para ver detalles de la orden
-    const viewOrderDetails = async (orderId) => {
-        try {
-            showLoader();
-            
+const viewOrderDetails = async (orderId, orderType) => {
+    try {
+        showLoader();
+        
+        let order;
+        if (orderType === 'custom') {
+            const res = await fetch(`/api/custom-order/${orderId}`, {
+                credentials: "include"
+            });
+            if (!res.ok) throw new Error(`Error ${res.status}: ${await res.text()}`);
+            order = await res.json();
+        } else {
             const res = await fetch(`/api/admin/orders/${orderId}`, {
                 credentials: "include"
             });
+            if (!res.ok) throw new Error(`Error ${res.status}: ${await res.text()}`);
+            order = await res.json();
+        }
 
-            if (!res.ok) {
-                throw new Error(`Error ${res.status}: ${await res.text()}`);
-            }
-
-            const order = await res.json();
-
-            // Crear HTML para los productos
-            const productsHTML = (order.products || []).map(product => `
+        // Crear HTML según el tipo de orden
+        let productsHTML = '';
+        let orderDetailsHTML = '';
+        
+        if (orderType === 'custom') {
+            orderDetailsHTML = `
+                <div class="order-section">
+                    <h3>Detalles del Pedido Personalizado</h3>
+                    <p><strong>Nombre del pedido:</strong> ${order.orderName}</p>
+                    <p><strong>Dimensiones:</strong> ${order.dimensions?.width}cm (ancho) x ${order.dimensions?.height}cm (alto)</p>
+                    ${order.referenceImage ? `
+                    <div class="reference-image">
+                        <p><strong>Imagen de referencia:</strong></p>
+                        <img src="${order.referenceImage}" alt="Referencia" style="max-width: 300px;">
+                    </div>
+                    ` : ''}
+                    <p><strong>Detalles adicionales:</strong> ${order.details || 'No especificados'}</p>
+                </div>
+            `;
+        } else {
+            productsHTML = (order.products || []).map(product => `
                 <div class="order-product">
                     <img src="${product.imageUrl || '/images/default-product.png'}" 
                          alt="${product.name}" width="80">
@@ -156,140 +202,143 @@ document.addEventListener("DOMContentLoaded", async () => {
                     </div>
                 </div>
             `).join("");
-
-            // Mostrar modal con los detalles
-            const modalHTML = `
-                <div class="order-details-modal">
-                    <div class="modal-content">
-                        <span class="close-modal">&times;</span>
-                        <h2>Factura #${order._id}</h2>
-                        <p class="order-date">${new Date(order.createdAt).toLocaleString()}</p>
-                        
-                        <div class="order-section">
-                            <h3>Información del Cliente</h3>
-                            <p><strong>Nombre:</strong> ${order.userName || 'No disponible'}</p>
-                            <p><strong>Email:</strong> ${order.userEmail || 'No disponible'}</p>
-                        </div>
-                        
-                        <div class="order-section">
-                            <h3>Productos</h3>
-                            <div class="products-list">
-                                ${productsHTML}
-                            </div>
-                            <div class="order-summary">
-                                <p><strong>Total:</strong> $${(order.total || 0).toFixed(2)}</p>
-                            </div>
-                        </div>
-                        
-                        <div class="order-section">
-                            <h3>Datos de Envío</h3>
-                            <p><strong>Dirección:</strong> ${order.shippingAddress?.address || 'No disponible'}</p>
-                            <p><strong>Teléfono:</strong> ${order.shippingAddress?.phone || 'No disponible'}</p>
-                        </div>
-                        
-                        ${order.message ? `
-                        <div class="order-section">
-                            <h3>Mensaje Adicional</h3>
-                            <p>${order.message}</p>
-                        </div>
-                        ` : ''}
-                        
-                        <div class="order-section">
-                            <h3>Estado</h3>
-                            <select id="order-status-select" class="order-status-select">
-                                <option value="pending" ${order.status === "pending" ? "selected" : ""}>Pendiente</option>
-                                <option value="processing" ${order.status === "processing" ? "selected" : ""}>En proceso</option>
-                                <option value="completed" ${order.status === "completed" ? "selected" : ""}>Completado</option>
-                                <option value="cancelled" ${order.status === "cancelled" ? "selected" : ""}>Cancelado</option>
-                            </select>
-                        </div>
-                        
-                        <button class="btn-success update-status-btn" data-id="${order._id}">
-                            <i class="material-icons">save</i> Guardar Estado
-                        </button>
-                        <button class="btn-primary print-btn" onclick="window.print()">
-                            <i class="material-icons">print</i> Imprimir Factura
-                        </button>
-                        <button class="btn-danger delete-order-btn" data-id="${order._id}">
-                            <i class="material-icons">delete</i> Eliminar Factura
-                        </button>
-                    </div>
-                </div>
-            `;
-
-// Insertar el modal en el DOM
-document.body.insertAdjacentHTML('beforeend', modalHTML);
-            
- // Configurar evento para cerrar el modal
-document.querySelector('.order-details-modal .close-modal').addEventListener('click', () => {
-    document.querySelector('.order-details-modal').remove();
-});
-
-            // Evento para cerrar el modal
-document.querySelector('.order-details-modal .close-modal').addEventListener('click', () => {
-    document.querySelector('.order-details-modal').remove();
-});
-
-// Evento para eliminar la factura
-document.querySelector('.delete-order-btn').addEventListener('click', async (e) => {
-    const orderId = e.target.closest('button').dataset.id;
-
-    if (!confirm("¿Estás seguro de que deseas eliminar esta factura?")) return;
-
-    try {
-        const res = await fetch(`/api/admin/orders/${orderId}`, {
-            method: "DELETE",
-            credentials: "include"
-        });
-
-        if (!res.ok) throw new Error("Error al eliminar la factura");
-
-        showAlert("Factura eliminada correctamente", "success");
-
-        // Quitar modal y recargar órdenes
-        document.querySelector('.order-details-modal').remove();
-        loadOrders();
-    } catch (err) {
-        console.error("Error al eliminar factura:", err);
-        showAlert("No se pudo eliminar la factura", "error");
-    }
-});
-
-// Evento para actualizar estado
-document.querySelector('.update-status-btn').addEventListener('click', async (e) => {
-    const orderId = e.target.closest('button').dataset.id;
-    const newStatus = document.getElementById('order-status-select').value;
-
-    try {
-        const res = await fetch(`/api/admin/orders/${orderId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({ status: newStatus })
-        });
-
-        if (!res.ok) throw new Error("Error al actualizar estado");
-
-        showAlert("Estado actualizado correctamente", "success");
-        document.querySelector('.order-details-modal').remove();
-        loadOrders();
-    } catch (err) {
-        console.error("Error al actualizar estado:", err);
-        showAlert("No se pudo actualizar el estado", "error");
-    }
-});
-
-
-            
-        } catch (err) {
-            console.error("Error al cargar detalles de la orden:", err);
-            showAlert(`Error al cargar la factura: ${err.message}`, "error");
-        } finally {
-            hideLoader();
         }
-    };
+
+        // Mostrar modal con los detalles
+        const modalHTML = `
+            <div class="order-details-modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2>Factura #${order._id}</h2>
+                    <p class="order-type">${orderType === 'custom' ? 'PEDIDO PERSONALIZADO' : 'PEDIDO DE TIENDA'}</p>
+                    <p class="order-date">${new Date(order.createdAt).toLocaleString()}</p>
+                    
+                    <div class="order-section">
+                        <h3>Información del Cliente</h3>
+                        <p><strong>Nombre:</strong> ${order.userName || order.user?.name || 'No disponible'}</p>
+                        <p><strong>Email:</strong> ${order.userEmail || order.user?.email || 'No disponible'}</p>
+                    </div>
+                    
+                    ${orderType === 'custom' ? orderDetailsHTML : `
+                    <div class="order-section">
+                        <h3>Productos</h3>
+                        <div class="products-list">
+                            ${productsHTML}
+                        </div>
+                        <div class="order-summary">
+                            <p><strong>Total:</strong> $${(order.total || 0).toFixed(2)}</p>
+                        </div>
+                    </div>
+                    `}
+                    
+                    <div class="order-section">
+                        <h3>Datos de Envío</h3>
+                        <p><strong>Dirección:</strong> ${order.shippingAddress?.address || 'No disponible'}</p>
+                        <p><strong>Teléfono:</strong> ${order.shippingAddress?.phone || 'No disponible'}</p>
+                    </div>
+                    
+                    ${order.message ? `
+                    <div class="order-section">
+                        <h3>Mensaje Adicional</h3>
+                        <p>${order.message}</p>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="order-section">
+                        <h3>Estado</h3>
+                        <select id="order-status-select" class="order-status-select">
+                            <option value="pending" ${order.status === "pending" ? "selected" : ""}>Pendiente</option>
+                            <option value="processing" ${order.status === "processing" ? "selected" : ""}>En proceso</option>
+                            <option value="completed" ${order.status === "completed" ? "selected" : ""}>Completado</option>
+                            <option value="cancelled" ${order.status === "cancelled" ? "selected" : ""}>Cancelado</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-success update-status-btn" data-id="${order._id}" data-type="${orderType}">
+                        <i class="material-icons">save</i> Guardar Estado
+                    </button>
+                    <button class="btn-primary print-btn" onclick="window.print()">
+                        <i class="material-icons">print</i> Imprimir Factura
+                    </button>
+                    <button class="btn-danger delete-order-btn" data-id="${order._id}" data-type="${orderType}">
+                        <i class="material-icons">delete</i> Eliminar Factura
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Insertar el modal en el DOM
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        
+        // Configurar eventos del modal
+        document.querySelector('.order-details-modal .close-modal').addEventListener('click', () => {
+            document.querySelector('.order-details-modal').remove();
+        });
+
+        document.querySelector('.delete-order-btn').addEventListener('click', async (e) => {
+            const orderId = e.target.closest('button').dataset.id;
+            const orderType = e.target.closest('button').dataset.type;
+
+            if (!confirm("¿Estás seguro de que deseas eliminar esta factura?")) return;
+
+            try {
+                const endpoint = orderType === 'custom' ? 
+                    `/api/admin/custom-order/${orderId}` : 
+                    `/api/admin/orders/${orderId}`;
+
+                const res = await fetch(endpoint, {
+                    method: "DELETE",
+                    credentials: "include"
+                });
+
+                if (!res.ok) throw new Error("Error al eliminar la factura");
+
+                showAlert("Factura eliminada correctamente", "success");
+                document.querySelector('.order-details-modal').remove();
+                loadOrders();
+            } catch (err) {
+                console.error("Error al eliminar factura:", err);
+                showAlert("No se pudo eliminar la factura", "error");
+            }
+        });
+
+        document.querySelector('.update-status-btn').addEventListener('click', async (e) => {
+            const orderId = e.target.closest('button').dataset.id;
+            const orderType = e.target.closest('button').dataset.type;
+            const newStatus = document.getElementById('order-status-select').value;
+
+            try {
+                const endpoint = orderType === 'custom' ? 
+                    `/api/admin/custom-order/${orderId}` : 
+                    `/api/admin/orders/${orderId}`;
+
+                const res = await fetch(endpoint, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                if (!res.ok) throw new Error("Error al actualizar estado");
+
+                showAlert("Estado actualizado correctamente", "success");
+                document.querySelector('.order-details-modal').remove();
+                loadOrders();
+            } catch (err) {
+                console.error("Error al actualizar estado:", err);
+                showAlert("No se pudo actualizar el estado", "error");
+            }
+        });
+        
+    } catch (err) {
+        console.error("Error al cargar detalles de la orden:", err);
+        showAlert(`Error al cargar la factura: ${err.message}`, "error");
+    } finally {
+        hideLoader();
+    }
+};
 
     
     // Función auxiliar para mostrar el estado
