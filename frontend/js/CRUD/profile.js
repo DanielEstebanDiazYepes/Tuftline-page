@@ -11,8 +11,18 @@ document.addEventListener("DOMContentLoaded", async () => { //CODIGO PARA MOSTRA
         document.getElementById("phone").value = user.phone || "xxx";
         document.getElementById("email").value = user.email || "";
       } else {
-        window.location.href = "/pages/auth/login.html";
-      }
+        Swal.fire({
+            title: "INICIE SESION",
+            text: "Debes iniciar sesión para ver tu perfil",
+            icon: "warning",
+            confirmButtonText: "OK"
+        }).then((result) => {
+            if (result.isConfirmed) {
+            window.location.href = "/pages/auth/login.html"; // Cambia por la ruta de tu login
+        }
+        });
+        return;
+        }
     } catch (error) {
       console.error("Error al obtener la sesión:", error);
     }

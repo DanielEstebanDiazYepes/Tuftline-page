@@ -80,7 +80,7 @@ const renderFavorites = (products) => {
 
     products.forEach(product => {
         const link_card = document.createElement("a");
-        link_card.href = `/products/${product._id}`; // Asegúrate de que esta ruta sea correcta para ver detalles del producto
+        link_card.href = `/products/${product._id}`; // RECUERDA 
         link_card.className = "product-link-card";
 
         const div = document.createElement("div");
@@ -115,8 +115,17 @@ const loadAllFavorites = async () => {
         if (data.success) {
             renderFavorites(data.favorites);
         } else {
-            alert("INICIA SESION PARA PODER VER TUS PRODUCTOS FAVORITOS");
-            window.location.href = "/pages/auth/login.html";
+        Swal.fire({
+            title: "INICIE SESION",
+            text: "Debes iniciar sesión para ver su lista de favoritos",
+            icon: "warning",
+            confirmButtonText: "OK"
+        }).then((result) => {
+            if (result.isConfirmed) {
+            window.location.href = "/pages/auth/login.html"; // Cambia por la ruta de tu login
+        }
+        });
+        return;
         }
     } catch (err) {
         console.error("Error al cargar favoritos (fetch):", err);

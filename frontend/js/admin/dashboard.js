@@ -283,7 +283,7 @@ const viewOrderDetails = async (orderId, orderType) => {
 
             try {
                 const endpoint = orderType === 'custom' ? 
-                    `/api/admin/custom-order/${orderId}` : 
+                    `/api/custom-order/${orderId}` : 
                     `/api/admin/orders/${orderId}`;
 
                 const res = await fetch(endpoint, {
@@ -309,7 +309,7 @@ const viewOrderDetails = async (orderId, orderType) => {
 
             try {
                 const endpoint = orderType === 'custom' ? 
-                    `/api/admin/custom-order/${orderId}` : 
+                    `/api/custom-order/${orderId}` : 
                     `/api/admin/orders/${orderId}`;
 
                 const res = await fetch(endpoint, {

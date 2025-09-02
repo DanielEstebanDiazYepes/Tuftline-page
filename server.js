@@ -18,7 +18,7 @@ dotenv.config(); // Configurar variables de entorno
 
 const app = express(); //Iniciamos express
 
-app.get("/", mobileRedirect("index.html", "/pages/mobile-pages/mobile-index.html"));
+app.get("/", mobileRedirect("../public/index.html", "/pages/mobile-pages/mobile-index.html"));
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "frontend")));

@@ -108,8 +108,17 @@ const loadAllCartProducts = async () => {
         if (data.success) {
             renderCartProducts(data.cart); // Llama a la función para renderizar
         }else {
-            alert("INICIA SESION PARA PODER VER TU CARRITO");
-            window.location.href = "/pages/auth/login.html";
+        Swal.fire({
+            title: "INICIE SESION",
+            text: "Debes iniciar sesión para ver su carrito",
+            icon: "warning",
+            confirmButtonText: "OK"
+        }).then((result) => {
+            if (result.isConfirmed) {
+            window.location.href = "/pages/auth/login.html"; // Cambia por la ruta de tu login
+        }
+        });
+        return;
         }
     } catch (err) {
         console.error("Error al cargar carrito (fetch):", err);

@@ -23,8 +23,17 @@ async function loadPurchasePage() {
     document.getElementById("final-total").textContent = `$${product.price}`;
 
     if(!user || !user.email) {// CREAMOS UN IF RAPIDO DONDE SI EL USUARIO NO ESTA LOGEADO LO MANDA A INICIAR SESION
-      window.location.href = "/pages/auth/login.html";
-      return;
+      Swal.fire({
+        title: "INICIE SESION",
+        text: "Debes iniciar sesión para seguir con la compra",
+        icon: "warning",
+        confirmButtonText: "OK"
+      }).then((result) => {
+        if (result.isConfirmed) {
+        window.location.href = "/pages/auth/login.html"; // Cambia por la ruta de tu login
+        }
+        });
+        return;
     }else{// CARGAMOS LOS DATOS DEL USUARIO EN EL FORMULARIO SI SE CUMPLE LA CONDICION
     document.getElementById("user-address").value = user.address;
     document.getElementById("user-phone").value = user.phone;
