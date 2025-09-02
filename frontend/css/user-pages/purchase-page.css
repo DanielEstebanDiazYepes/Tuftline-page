@@ -4,7 +4,7 @@
     background-color: #f5f5f5;
     margin: 0;
     padding: 20px;
-    background-image: url(/resources/PAPEL-TAPIZ-PANADERIA.jpg);
+    background: rgb(195, 250, 236);
     background-size: cover;
     background-position: center;
   }
@@ -16,6 +16,7 @@
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
   }
 
   h2 {

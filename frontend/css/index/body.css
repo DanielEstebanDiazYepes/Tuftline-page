@@ -15,10 +15,10 @@ body {
 }
 
 .container-banner{
-  width: 100vw; /* fuerza 100% del ancho visible */
+ /* fuerza 100% del ancho visible */
   margin: 0;
   padding: 0;
-  background-image: url(/resources/panaderia.png);
+  background-image: url(/resources/BANNER-NUEVO.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

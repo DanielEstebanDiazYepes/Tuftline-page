@@ -16,7 +16,7 @@
   height: 100%;
 }
 
-/* Contenedor del pedido personalizado (cambios mínimos) */
+
 .personalized-product-info {
   background-color: #80dbf1;
   width: 1000px;
@@ -33,9 +33,6 @@
   align-items: center;
 }
 
-/* Contenedor de productos dinámicos (ajuste mínimo) */
-
-/* Asegurar misma anchura para todos los elementos */
 .product-card, .personalized-product-info {
   flex: 0 0 350px;
 }
@@ -62,16 +59,12 @@
   right: 20px;
 }
 
-/* Efecto hover consistente */
 .product-card:hover, .custom-order-card:hover .personalized-product-info {
   transform: translateY(-5px);
   box-shadow: 4px 4px 20px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
 }
 
-/* ------------------------- */
-/* A PARTIR DE AQUÍ TODO SE MANTIENE IGUAL QUE EN TU CSS ORIGINAL */
-/* ------------------------- */
 
 .section-divider-top{
   position: relative;
